@@ -1,6 +1,6 @@
 import {
     BoxGeometry, PerspectiveCamera, Scene, WebGLRenderer, Mesh, MeshPhongMaterial, DirectionalLight, TextureLoader,
-    RepeatWrapping, NearestFilter, SRGBColorSpace, PlaneGeometry, DoubleSide,
+    RepeatWrapping, NearestFilter, SRGBColorSpace, PlaneGeometry, DoubleSide, SphereGeometry,
 } from "three";
 import {gameSetting} from "@/app/game/gameSetting";
 import {EntityComponentSystem} from "javascript-entity-component-system";
@@ -14,6 +14,7 @@ import InputSystem from "@/app/game/System/InputSystem";
 import MovementSystem from "@/app/game/System/MovementSystem";
 import PositionSystem from "@/app/game/System/PositionSystem";
 import World from "@/app/game/World";
+import {OrbitControls} from "three/addons";
 
 export class Game {
     constructor() {
@@ -26,6 +27,7 @@ export class Game {
         this.world = null;
         this.renderSystem =  null
         this.road = null;
+        this.ball = null;
     }
 
     init(canvas) {
@@ -40,42 +42,46 @@ export class Game {
         light.position.set( - 1, 2, 4 );
         this.scene.add( light );
 
-        // this.createRoad();
-
         this.cube = new Entity()
         this.cube.add('Visual',new Visual(this.createCube()))
         this.road =  new Entity()
         this.road.add('Visual',new Visual(this.createRoad()))
-        this.road.add('Position',new Position(...gameSetting.cubePosition))
+        this.cube.add('Position',new Position(...gameSetting.cubePosition))
+        this.road.add('Position',new Position(0,-2,0))
+
         this.road.add('Movement',new Movement())
         this.road.add('Input',new Input())
         this.world.addEntity(this.cube);
+        this.world.addEntity(this.road);
         // this.renderSystem = new RenderSystem(this.scene)
         this.world.addSystem(new InputSystem(this.world))
         this.world.addSystem(new MovementSystem())
         this.world.addSystem(new PositionSystem())
         this.world.addSystem(new RenderSystem(this.scene))
+        console.log(this.world)
 
         requestAnimationFrame(this.render);
     }
     createRoad() {
-        const roadGeometry = new  PlaneGeometry(3,200)
-        const roadMaterial = new MeshPhongMaterial({color: 0x555555});
+        const textureLoader = new TextureLoader();
+        const texture = textureLoader.load('/loader.jpg');
+
+        texture.wrapS = RepeatWrapping;
+        texture.wrapT = RepeatWrapping;
+
+        texture.repeat.set(1, 20);
+
+        this.roadTexture = texture
+
+        const roadGeometry = new  PlaneGeometry(3,300)
+        const roadMaterial = new MeshPhongMaterial({
+            map: texture,
+            side: DoubleSide,
+        });
 
         const road = new Mesh(roadGeometry, roadMaterial);
 
         road.rotation.x = -Math.PI / 2;
-        road.position.y=-2
-
-        this.scene.add(road);
-        const lineGeometry = new BoxGeometry(0.05,0.01,1000)
-        const lineMaterial = new MeshPhongMaterial({color: 'red'});
-        const line1 = new Mesh(lineGeometry, lineMaterial);
-        const line2 = new Mesh(lineGeometry, lineMaterial);
-        line1.position.set(-1, -1, 0);
-        line2.position.set(1, 0.02, 0);
-        road.add(line1);
-        road.add(line2);
         return road
 
     }
@@ -86,18 +92,15 @@ export class Game {
             gameSetting.camera.aspect,
             gameSetting.camera.near,
             gameSetting.camera.far);
-        // this.camera.position.z =3;
-        this.camera.position.set(0,0,3)
-        this.camera.lookAt(0, 0, 0);
+        this.camera.position.set(0, 0, 3);
+        this.camera.lookAt(0, 0, -20);
     }
 
     createCube() {
-        const geometry = new BoxGeometry(
-            gameSetting.cubeSize.width,
-            gameSetting.cubeSize.height,
-            gameSetting.cubeSize.depth);
+        const geometry = new SphereGeometry(0.3, 16, 8);
         const material = new MeshPhongMaterial({ color: 0x44aa88 });
-        return new Mesh(geometry, material)
+        this.ball =new Mesh(geometry, material)
+        return this.ball
     }
 
     destroy() {
@@ -121,6 +124,8 @@ export class Game {
             this.camera.aspect = canvas.clientWidth / canvas.clientHeight;
             this.camera.updateProjectionMatrix();
         }
+        this.roadTexture.offset.y += 0.01;
+        this.ball.rotation.x += 0.06;
         this.world.update();
         this.renderer.render(this.scene, this.camera);
         requestAnimationFrame(this.render);

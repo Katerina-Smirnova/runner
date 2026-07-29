@@ -8,13 +8,16 @@ export default class RenderSystem {
             const visual = entity.get("Visual");
             const position = entity.get("Position");
 
-            if (!visual || !position) continue;
+            // if (!visual || !position) continue;
 
-            visual.mesh.position.set(
-                position.x,
-                position.y,
-                position.z
-            );
+            visual.mesh.position.x +=
+                (position.x - visual.mesh.position.x) * 0.15;
+
+            visual.mesh.position.y +=
+                (position.y - visual.mesh.position.y) * 0.15;
+
+            visual.mesh.position.z +=
+                (position.z - visual.mesh.position.z) * 0.15;
 
             if (visual.mesh.parent === null) {
                 this.scene.add(visual.mesh);

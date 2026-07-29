@@ -15,7 +15,7 @@ export const gameSetting = {
         far: 2,
         color: 'white',
     },
-    cubePosition: [0, -2, -0.5],
+    cubePosition: [0, -1.8, -0.5],
     line: {
         left: -1,
         right: 1,

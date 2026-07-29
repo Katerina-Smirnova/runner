@@ -6,7 +6,6 @@ export default class World {
         this.entities.push(entity);
     }
     addSystem(system) {
-        console.log(system);
         this.systems.push(system);
     }
 
