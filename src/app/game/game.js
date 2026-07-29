@@ -25,6 +25,7 @@ export class Game {
         this.render = this.render.bind(this);
         this.world = null;
         this.renderSystem =  null
+        this.road = null;
     }
 
     init(canvas) {
@@ -39,13 +40,15 @@ export class Game {
         light.position.set( - 1, 2, 4 );
         this.scene.add( light );
 
-        this.createRoad(-4, 0, 2, 20);
+        // this.createRoad();
 
         this.cube = new Entity()
         this.cube.add('Visual',new Visual(this.createCube()))
-        this.cube.add('Position',new Position(...gameSetting.cubePosition))
-        this.cube.add('Movement',new Movement())
-        this.cube.add('Input',new Input())
+        this.road =  new Entity()
+        this.road.add('Visual',new Visual(this.createRoad()))
+        this.road.add('Position',new Position(...gameSetting.cubePosition))
+        this.road.add('Movement',new Movement())
+        this.road.add('Input',new Input())
         this.world.addEntity(this.cube);
         // this.renderSystem = new RenderSystem(this.scene)
         this.world.addSystem(new InputSystem(this.world))
@@ -69,10 +72,11 @@ export class Game {
         const lineMaterial = new MeshPhongMaterial({color: 'red'});
         const line1 = new Mesh(lineGeometry, lineMaterial);
         const line2 = new Mesh(lineGeometry, lineMaterial);
-        line1.position.set(-0.5, -2, 0);
-        line2.position.set(0.5, -2, 0);
-        this.scene.add(line1);
-        this.scene.add(line2);
+        line1.position.set(-1, -1, 0);
+        line2.position.set(1, 0.02, 0);
+        road.add(line1);
+        road.add(line2);
+        return road
 
     }
 
