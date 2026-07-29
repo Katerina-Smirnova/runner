@@ -8,7 +8,9 @@ export default class PositionSystem {
 
             if(movement){
                 position.x += movement.dx
+                position.z += movement.dz
                 movement.dx=0
+                movement.dz=0
             }
 
         }

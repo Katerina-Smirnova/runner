@@ -9,9 +9,11 @@ export default class MovementSystem {
             if (movement) {
                 if (input.direction === 'right' && position.x <= gameSetting.line.center) {
                     movement.dx = 1;
+                    movement.dz = 1;
                     input.direction = null;
                 } else if (input.direction === 'left' && position.x >= gameSetting.line.center) {
                     movement.dx = -1;
+                    movement.dz = -1;
                     console.log(movement.dx)
                     input.direction = null;
                 }

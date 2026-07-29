@@ -125,7 +125,7 @@ export class Game {
             this.camera.updateProjectionMatrix();
         }
         this.roadTexture.offset.y += 0.01;
-        this.ball.rotation.x += 0.06;
+        this.ball.rotation.x -= 0.06;
         this.world.update();
         this.renderer.render(this.scene, this.camera);
         requestAnimationFrame(this.render);
