@@ -16,6 +16,7 @@ export default class RenderSystem {
                 position.y += movingForward.y;
                 position.z += movingForward.z;
                 visual.mesh.scale.multiplyScalar(1.003);
+
             }
 
             visual.mesh.position.x +=
@@ -31,8 +32,8 @@ export default class RenderSystem {
             if (offset) {
                 visual.mesh.material.map.offset.y += offset?.y ?? 0;
             }
-            if(position.y<20){
-                this.world.deleteEntity(entity)
+            if (movingForward && position.y < -5) {
+                entity.destroy = true;
             }
             if (visual.mesh.parent === null) {
                 this.scene.add(visual.mesh);

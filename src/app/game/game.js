@@ -142,13 +142,14 @@ export class Game {
         return needResize;
     }
     addObstacle() {
-        const section = this.generateLevel.dequeue()
-        for(let position = 0; position < section.length; ++position){
-            if(section[position]===0){
-                this.createObstacle(position-1)
+        const section = this.generateLevel.nextSection();
+        for (let lane = 0; lane < section.length; lane++) {
+            if (section[lane] === 0) {
+                this.createObstacle(lane - 1);
             }
         }
         setTimeout(this.addObstacle, 500);
+
     }
 
     render() {

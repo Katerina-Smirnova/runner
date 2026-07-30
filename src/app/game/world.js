@@ -8,15 +8,36 @@ export default class World {
     addSystem(system) {
         this.systems.push(system);
     }
-    deleteEntity(entity) {
-        console.log('delete')
-        const visual = entity.get("Visual");
-        visual.mesh.geometry.dispose();
-        visual.mesh.material.dispose();
-        this.entities.filter(item => {item===entity})
+    removeEntities() {
+
+        this.entities = this.entities.filter(entity => {
+
+            if (!entity.destroy) {
+                return true;
+            }
+
+            const visual = entity.get("Visual");
+
+            if (visual) {
+
+                if (visual.mesh.parent) {
+                    visual.mesh.parent.remove(visual.mesh);
+                }
+
+                visual.mesh.geometry.dispose();
+
+                // if (Array.isArray(visual.mesh.material)) {
+                //     visual.mesh.material.forEach(mat => mat.dispose());
+                // } else {
+                //     visual.mesh.material.dispose();
+                // }
+            }
+
+            return false;
+
+        });
 
     }
-
 
     query(...components) {
         return this.entities.filter(entity =>
@@ -29,8 +50,7 @@ export default class World {
             if(Reflect.has(system, "update")){
                 system.update(this.entities, dt);
             }
-
-
         }
+        this.removeEntities();
     }
 }

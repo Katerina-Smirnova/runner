@@ -1,23 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="6d1bce30-2716-4079-8467-6920eb1b066b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/app/game/components/movingForward.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/game/generateSection.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/game/System/InputSystem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/system/inputSystem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/game/System/MovementSystem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/system/movementSystem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/game/System/PositionSystem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/system/positionSystem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/game/System/RenderSystem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/system/renderSystem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/game/World.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/world.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/game/components/EventInput.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/components/eventInput.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/game/components/Movement.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/components/movement.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/game/components/Offset.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/components/offset.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/game/components/Position.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/components/position.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/game/components/Rotation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/components/rotation.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/game/components/Visual.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/components/visual.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/game/entity/entity.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/entity/entity.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/game/game.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/game.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/game/gameSetting.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/gameSetting.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/game/generateSection.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/generateSection.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/game/system/renderSystem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/system/renderSystem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/game/world.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/world.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,6 +19,65 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="NextEditCompletionFeaturesState">
+    <decayedCancelled>
+      <entry key="MS100" value="4.0238981060605344E-103" />
+      <entry key="MS500" value="3.318405045062949E-21" />
+      <entry key="S2" value="7.58983524705064E-6" />
+      <entry key="S5" value="0.008955563951002951" />
+      <entry key="S10" value="0.09463384146806549" />
+      <entry key="S30" value="0.4557032822674533" />
+      <entry key="S60" value="0.6750736762616233" />
+      <entry key="M2" value="0.8285222494445466" />
+      <entry key="M5" value="1.2198186724006685" />
+      <entry key="M10" value="2.3513076855941923" />
+      <entry key="M15" value="3.7096755858367447" />
+      <entry key="M30" value="7.144075279163711" />
+      <entry key="H1" value="10.748093935084256" />
+      <entry key="H2" value="13.437790396851913" />
+      <entry key="H4" value="15.092823658479325" />
+      <entry key="D1" value="16.662956968570057" />
+      <entry key="W1" value="16.951357766211608" />
+    </decayedCancelled>
+    <decayedSelected>
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.0000000000000013" />
+      <entry key="S2" value="1.0003011454283977" />
+      <entry key="S5" value="1.0710218629452548" />
+      <entry key="S10" value="1.4564481623940901" />
+      <entry key="S30" value="2.5974886314220735" />
+      <entry key="S60" value="3.1885001684529097" />
+      <entry key="M2" value="3.5702598013361073" />
+      <entry key="M5" value="4.077513972598854" />
+      <entry key="M10" value="4.950632009280294" />
+      <entry key="M15" value="5.749003753493017" />
+      <entry key="M30" value="7.359916049985302" />
+      <entry key="H1" value="8.791650869569585" />
+      <entry key="H2" value="9.7730180854812" />
+      <entry key="H4" value="10.351768459378906" />
+      <entry key="D1" value="10.886746027566465" />
+      <entry key="W1" value="10.983687690182471" />
+    </decayedSelected>
+    <decayedShown>
+      <entry key="MS100" value="1.2427160273088467E-7" />
+      <entry key="MS500" value="0.04157903253377178" />
+      <entry key="S2" value="0.45174955335822076" />
+      <entry key="S5" value="0.7902947860011449" />
+      <entry key="S10" value="1.3380885538163951" />
+      <entry key="S30" value="2.914212988545567" />
+      <entry key="S60" value="3.775574484407694" />
+      <entry key="M2" value="4.348637770789904" />
+      <entry key="M5" value="5.273343243099925" />
+      <entry key="M10" value="7.28575905866043" />
+      <entry key="M15" value="9.445095003838363" />
+      <entry key="M30" value="14.494258250584458" />
+      <entry key="H1" value="19.53355457236599" />
+      <entry key="H2" value="23.207260191040913" />
+      <entry key="H4" value="25.442684715085807" />
+      <entry key="D1" value="27.549364617673277" />
+      <entry key="W1" value="27.93499658732725" />
+    </decayedShown>
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 2
@@ -50,7 +102,9 @@
     "js.debugger.nextJs.config.created.server": "true",
     "last_opened_file_path": "C:/Users/e.smirnova/WebstormProjects/runner",
     "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2025.3.1.1\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
     "vue.rearranger.settings.migration": "true"
