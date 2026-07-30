@@ -14,6 +14,7 @@ export default class MovementSystem {
                     movement.dx = -1;
                     input.direction = null;
                 }
+
             }
 
         }

@@ -10,8 +10,6 @@ export default class PositionSystem {
             if(movement){
                 movement.dx =0
             }
-
-
         }
     }
 }

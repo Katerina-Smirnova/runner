@@ -8,6 +8,14 @@ export default class World {
     addSystem(system) {
         this.systems.push(system);
     }
+    deleteEntity(entity) {
+        console.log('delete')
+        const visual = entity.get("Visual");
+        visual.mesh.geometry.dispose();
+        visual.mesh.material.dispose();
+        this.entities.filter(item => {item===entity})
+
+    }
 
 
     query(...components) {

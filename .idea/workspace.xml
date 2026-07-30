@@ -2,9 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6d1bce30-2716-4079-8467-6920eb1b066b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/app/game/components/movingForward.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/game/generateSection.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/game/System/InputSystem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/System/InputSystem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/game/System/InputSystem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/system/inputSystem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/game/System/MovementSystem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/system/movementSystem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/game/System/PositionSystem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/system/positionSystem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/game/System/RenderSystem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/system/renderSystem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/game/World.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/world.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/game/components/EventInput.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/components/eventInput.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/game/components/Movement.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/components/movement.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/game/components/Offset.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/components/offset.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/game/components/Position.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/components/position.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/game/components/Rotation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/components/rotation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/game/components/Visual.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/components/visual.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/game/game.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/game.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/game/gameSetting.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/gameSetting.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,7 +93,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1785395262020</updated>
-      <workItem from="1785395263110" duration="11466000" />
+      <workItem from="1785395263110" duration="27750000" />
     </task>
     <servers />
   </component>

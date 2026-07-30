@@ -1,5 +1,5 @@
 export default class Offset {
     constructor() {
-        this.y = 0.01
+        this.y = 0.005
     }
 }
