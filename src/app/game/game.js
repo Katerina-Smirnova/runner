@@ -43,8 +43,8 @@ export class Game {
         ballEntity.add('Position',new Position(...gameSetting.ball.position))
         road.add('Position',new Position(0,-2,0))
 
-        ballEntity.add('Movement',new Movement())
-        ballEntity.add('EventInput',new EventInput())
+        road.add('Movement',new Movement())
+        road.add('EventInput',new EventInput())
         ballEntity.add("Rotation", new Rotation())
 
         this.world.addEntity(ballEntity);

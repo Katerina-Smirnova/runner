@@ -19,9 +19,9 @@ export default class InputSystem {
         for (const entity of this.getInputs()) {
             const input = entity.get("EventInput");
             if (e.keyCode === 39 || e.keyCode === 68) {
-                input.direction = 'right'
-            } else if (e.keyCode === 37 || e.keyCode === 65) {
                 input.direction = 'left'
+            } else if (e.keyCode === 37 || e.keyCode === 65) {
+                input.direction = 'right'
             }
         }
     }
@@ -33,9 +33,9 @@ export default class InputSystem {
         for (const entity of this.getInputs()) {
             const input = entity.get("EventInput");
             if (e.clientX > this.startX) {
-                input.direction = 'right'
-            } else if (e.clientX < this.startX) {
                 input.direction = 'left'
+            } else if (e.clientX < this.startX) {
+                input.direction = 'right'
             }
         }
     }

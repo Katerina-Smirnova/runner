@@ -2,18 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6d1bce30-2716-4079-8467-6920eb1b066b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/app/game/components/Offset.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/game/components/Rotation.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/game/System/InputSystem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/System/InputSystem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/game/System/MovementSystem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/System/MovementSystem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/game/System/PositionSystem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/System/PositionSystem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/game/System/RenderSystem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/System/RenderSystem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/game/components/Input.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/components/EventInput.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/game/components/Movement.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/components/Movement.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/game/components/Visual.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/components/Visual.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/game/game.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/game.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/game/gameSetting.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/gameSetting.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,7 +80,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1785395262020</updated>
-      <workItem from="1785395263110" duration="9584000" />
+      <workItem from="1785395263110" duration="11466000" />
     </task>
     <servers />
   </component>
