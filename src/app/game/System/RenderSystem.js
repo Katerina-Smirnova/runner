@@ -5,20 +5,25 @@ export default class RenderSystem {
 
     update(entities) {
         for (const entity of entities) {
+
             const visual = entity.get("Visual");
             const position = entity.get("Position");
-
-            // if (!visual || !position) continue;
+            const rotation = entity.get("Rotation");
+            const offset = entity.get("Offset");
 
             visual.mesh.position.x +=
-                (position.x - visual.mesh.position.x) * 0.15;
+                (position.x - visual.mesh.position.x) * 0.1;
 
             visual.mesh.position.y +=
-                (position.y - visual.mesh.position.y) * 0.15;
+                (position.y - visual.mesh.position.y) * 0.1;
 
             visual.mesh.position.z +=
-                (position.z - visual.mesh.position.z) * 0.15;
+                (position.z - visual.mesh.position.z) * 0.1;
 
+            visual.mesh.rotation.x += rotation?.x ?? 0
+            if(offset){
+                visual.mesh.material.map.offset.y += offset?.y ?? 0;
+            }
             if (visual.mesh.parent === null) {
                 this.scene.add(visual.mesh);
             }

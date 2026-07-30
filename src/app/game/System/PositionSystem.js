@@ -6,12 +6,11 @@ export default class PositionSystem {
             const movement = entity.get("Movement");
             const position = entity.get("Position");
 
+            position.x += movement?.dx ?? 0;
             if(movement){
-                position.x += movement.dx
-                position.z += movement.dz
-                movement.dx=0
-                movement.dz=0
+                movement.dx =0
             }
+
 
         }
     }

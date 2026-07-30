@@ -1,4 +1,4 @@
-export default class Input {
+export default class EventInput {
     constructor() {
         this.direction = null;
     }

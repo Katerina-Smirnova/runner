@@ -12,12 +12,12 @@ export default class InputSystem {
     }
 
     getInputs() {
-        return this.world.query("Input");
+        return this.world.query("EventInput");
     }
 
     handleKeyDown(e) {
         for (const entity of this.getInputs()) {
-            const input = entity.get("Input");
+            const input = entity.get("EventInput");
             if (e.keyCode === 39 || e.keyCode === 68) {
                 input.direction = 'right'
             } else if (e.keyCode === 37 || e.keyCode === 65) {
@@ -28,12 +28,10 @@ export default class InputSystem {
 
     handleMouseDown(e) {
         this.startX = e.clientX;
-        console.log('Down')
     }
     handleMouseUp(e) {
-        console.log('Up')
         for (const entity of this.getInputs()) {
-            const input = entity.get("Input");
+            const input = entity.get("EventInput");
             if (e.clientX > this.startX) {
                 input.direction = 'right'
             } else if (e.clientX < this.startX) {

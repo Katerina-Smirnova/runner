@@ -4,22 +4,33 @@ export const gameSetting = {
         aspect: 2,
         far: 50,
         near: 0.1,
+        position: [0, 0, 3],
     },
-    cubeSize: {
-        width: 0.5,
-        height: 0.5,
-        depth: 0.5,
+    light: {
+        color: 0xFFFFFF,
+        intensity: 3,
+        position: [-1, 2, 4],
     },
     fog: {
         near: 1,
         far: 2,
         color: 'white',
     },
-    cubePosition: [0, -1.8, -0.5],
+    ball: {
+        position: [0, -1.8, -0.5],
+        size: [0.3, 16, 8],
+        color: 0x44aa88,
+    },
+    road: {
+        texture: '/loader.jpg',
+        repeatTexture:[1,20],
+        size:[3,300],
+    },
     line: {
         left: -1,
         right: 1,
         center: 0
     }
+
 
 }
