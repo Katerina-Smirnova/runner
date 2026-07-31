@@ -9,15 +9,6 @@ export default class RenderSystem {
             const visual = entity.get("Visual");
             const position = entity.get("Position");
             const rotation = entity.get("Rotation");
-            const offset = entity.get("Offset");
-            const movingForward = entity.get("MovingForward");
-
-            if (movingForward) {
-                position.y += movingForward.y;
-                position.z += movingForward.z;
-                visual.mesh.scale.multiplyScalar(1.003);
-
-            }
 
             visual.mesh.position.x +=
                 (position.x - visual.mesh.position.x) * 0.1;
@@ -29,17 +20,10 @@ export default class RenderSystem {
                 (position.z - visual.mesh.position.z) * 0.1;
 
             visual.mesh.rotation.x += rotation?.x ?? 0
-            if (offset) {
-                visual.mesh.material.map.offset.y += offset?.y ?? 0;
-            }
-            if (movingForward && position.y < -5) {
-                entity.destroy = true;
-            }
+
             if (visual.mesh.parent === null) {
                 this.scene.add(visual.mesh);
             }
-
-
         }
     }
 }
