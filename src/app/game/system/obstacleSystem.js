@@ -4,12 +4,28 @@ import {gameSetting} from "@/app/game/gameSetting";
 import GenerateSection from "@/app/game/generateSection";
 
 export default class ObstacleSystem {
-    constructor(sections,z) {
-        this.sections = sections
-        this.z = z
+    constructor(world) {
+        this.sections = []
+        this.world = world;
+        this.z = -10
         this.distance = 5
         this.generateLevel = new GenerateSection();
-        console.log(this.sections)
+        this.create()
+    }
+    create(){
+        for(const entity of this.world.entities){
+            const road = entity.get("Road");
+            const visual = entity.get("Visual")
+            if(road){
+                for (let i = 0; i < 10; i++) {
+                    const section = this.createSection(this.generateLevel.nextSection(), this.z)
+                    road.obstacles.push(section);
+                    visual.mesh.add(section);
+                    this.sections.push(section);
+                    this.z -= this.distance
+                }
+            }
+        }
     }
 
     update(entities) {
@@ -17,12 +33,10 @@ export default class ObstacleSystem {
             const road = entity.get("Road");
             const visual = entity.get("Visual")
             if (road) {
-                console.log(this.sections[1].position.z, visual.mesh.position.z)
                 if (visual.mesh.position.z > (-this.sections[1].position.z)) {
-                    console.log('new')
                     this.sections.shift()
                     const section = this.createSection(this.generateLevel.nextSection(), this.z)
-                    road.sections.push(section);
+                    road.obstacles.push(section);
                     visual.mesh.add(section);
                     this.sections.push(section);
                     this.z -= this.distance

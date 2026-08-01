@@ -12,8 +12,8 @@ export const gameSetting = {
         position: [-1, 2, 4],
     },
     ball: {
-        position: [0,0.17,5.5],
-        size: [0.2, 16, 8],
+        position: [0,0.25,4.5],
+        size: [0.3, 16, 8],
         color: 0x44aa88,
     },
     obstacle: {
@@ -24,7 +24,10 @@ export const gameSetting = {
     road: {
         texture: '/loader.jpg',
         repeatTexture:[1,20],
-        size:[3,150,1,80],
+        size:{
+            width: 3,
+            height: 200,
+        },
         position:[0,0,0],
     },
     line: {

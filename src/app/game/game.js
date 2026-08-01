@@ -14,10 +14,6 @@ import MovementSystem from "@/app/game/system/movementSystem";
 import PositionSystem from "@/app/game/system/positionSystem";
 import World from "@/app/game/world";
 import Rotation from "@/app/game/components/rotation";
-import Offset from "@/app/game/components/offset";
-import GenerateSection from "@/app/game/generateSection";
-import MovingForward from "@/app/game/components/movingForward";
-import {OrbitControls} from "three/addons";
 import Road from "@/app/game/components/rode";
 import RoadSystem from "@/app/game/system/roadSystem";
 import ObstacleSystem from "@/app/game/system/obstacleSystem";
@@ -29,16 +25,9 @@ export class Game {
         this.camera = null;
         this.render = this.render.bind(this);
         this.world = null;
-        this.roadMesh = null
-        this.generateLevel = new GenerateSection();
-        // this.addObstacle = this.addObstacle.bind(this);
-        this.sections = []
-        this.distance = 5
         this.groupWorld = new Group()
-        this.roadEntity = null
+        this.roadEntity = new Entity();
         this.roadSegments=[]
-        this.segmentsLength=200
-        this.countSegments=3
     }
 
     init(canvas) {
@@ -49,47 +38,28 @@ export class Game {
         this.createLight()
         this.createFog()
         this.createRoad()
-        // this.createSection()
-        const controls = new OrbitControls(this.camera, canvas);
-        controls.target.set(0, 0, 0);
-        controls.update();
-
 
         const ballEntity = new Entity()
-        this.roadEntity = new Entity();
 
         ballEntity.add('Visual', new Visual(this.createBall()))
         ballEntity.add('Position', new Position(...gameSetting.ball.position))
-        console.log(ballEntity.position)
-
         ballEntity.add("Rotation", new Rotation())
 
         this.roadEntity.add('Visual',  new Visual(this.groupWorld))
         this.roadEntity.add('Position', new Position(...gameSetting.road.position))
-        this.roadEntity.add("Road", new Road())
+        this.roadEntity.add("Road", new Road(this.roadSegments))
         this.roadEntity.add('EventInput', new EventInput())
         this.roadEntity.add('Movement', new Movement())
 
         this.world.addEntity(ballEntity);
         this.world.addEntity(this.roadEntity);
-        const road = this.roadEntity.get("Road");
-        const visual = this.roadEntity.get("Visual")
-        let z = -20
-        for (let i = 0; i < 10; i++) {
-            const section = this.createSection(this.generateLevel.nextSection(), z)
-            road.sections.push(section);
-            visual.mesh.add(section);
-            this.sections.push(section);
-            console.log(section.position.z)
-            z -= this.distance
-        }
 
         this.world.addSystem(new InputSystem(this.world))
         this.world.addSystem(new MovementSystem())
         this.world.addSystem(new PositionSystem())
         this.world.addSystem(new RenderSystem(this.scene, this.world))
-        this.world.addSystem(new RoadSystem(this.roadSegments))
-        this.world.addSystem(new ObstacleSystem(this.sections, z))
+        this.world.addSystem(new RoadSystem())
+        this.world.addSystem(new ObstacleSystem(this.world))
         requestAnimationFrame(this.render);
     }
 
@@ -105,15 +75,14 @@ export class Game {
             map: texture,
             side: DoubleSide,
         });
-        for(let i = 0; i < this.countSegments; i++) {
-            const geometry = new PlaneGeometry(3,this.segmentsLength);
+        for(let i = 0; i < 3; i++) {
+            const geometry = new PlaneGeometry(gameSetting.road.size.width,gameSetting.road.size.height);
             const road =  new Mesh(geometry, material);
-            road.position.set(0,0,-i*this.segmentsLength);
+            road.position.set(0,0,-i*gameSetting.road.size.height);
             road.rotation.x = -Math.PI / 2;
             this.roadSegments.push(road);
             this.groupWorld.add(road);
         }
-
     }
 
     createFog() {
@@ -136,55 +105,6 @@ export class Game {
         light.position.set(...gameSetting.light.position);
         this.scene.add(light);
     }
-
-    createObstacle() {
-        const geometry = new BoxGeometry(...gameSetting.obstacle.size);
-        const material = new MeshPhongMaterial({color: gameSetting.obstacle.color});
-        return new Mesh(geometry, material);
-
-    }
-
-    createSection(section,z) {
-        const group = new Group()
-
-        for (let lane = 0; lane < section.length; lane++) {
-            if (section[lane] === 0) {
-                const obstacleMesh = this.createObstacle();
-                obstacleMesh.position.set(lane - 1, 0, 0)
-                group.add(obstacleMesh);
-            }
-        }
-        const pos = new Position(0,0.2, z)
-        group.position.set( pos.x,
-            pos.y,
-            pos.z)
-        return group;
-    }
-
-    updateSection() {
-        const road = this.roadEntity.get("Road");
-        const visual = this.roadEntity.get("Visual");
-        const first = road.sections[0];
-
-        // first.position.y -= 0.1;
-
-        if (first.position.y > -5)
-            return;
-
-        visual.mesh.remove(first);
-        road.sections.shift();
-
-        const last = road.sections.at(-1);
-
-        const section = this.createSection(
-            this.generateLevel.nextSection(),
-            last.position.y + this.distance
-        );
-
-        road.sections.push(section);
-        visual.mesh.add(section);
-    }
-
 
     createBall() {
         const geometry = new SphereGeometry(...gameSetting.ball.size);
@@ -214,7 +134,6 @@ export class Game {
             this.camera.updateProjectionMatrix();
         }
         this.world.update();
-        // this.updateSection()
         this.renderer.render(this.scene, this.camera);
         requestAnimationFrame(this.render);
     }
