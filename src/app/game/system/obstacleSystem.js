@@ -5,23 +5,23 @@ import GenerateSection from "@/app/game/generateSection";
 
 export default class ObstacleSystem {
     constructor(world) {
-        this.sections = []
         this.world = world;
-        this.z = -10
-        this.distance = 5
+        this.z = gameSetting.obstacle.startZ
+        this.distance = gameSetting.obstacle.distance;
         this.generateLevel = new GenerateSection();
-        this.create()
+        // this.create()
     }
     create(){
         for(const entity of this.world.entities){
             const road = entity.get("Road");
             const visual = entity.get("Visual")
+            const wayComponent = entity.get("Way");
             if(road){
+                const obstacles = road.obstacles;
                 for (let i = 0; i < 10; i++) {
-                    const section = this.createSection(this.generateLevel.nextSection(), this.z)
-                    road.obstacles.push(section);
+                    const section = this.createSection(wayComponent.way[i], this.z)
+                    obstacles.push(section);
                     visual.mesh.add(section);
-                    this.sections.push(section);
                     this.z -= this.distance
                 }
             }
@@ -33,12 +33,13 @@ export default class ObstacleSystem {
             const road = entity.get("Road");
             const visual = entity.get("Visual")
             if (road) {
-                if (visual.mesh.position.z > (-this.sections[1].position.z)) {
-                    this.sections.shift()
+                const obstacles = road.obstacles;
+                if (visual.mesh.position.z > (-obstacles[0].position.z+this.distance*3)) {
+                    obstacles.shift()
+                    visual.mesh.remove(obstacles[0])
                     const section = this.createSection(this.generateLevel.nextSection(), this.z)
-                    road.obstacles.push(section);
+                    obstacles.push(section);
                     visual.mesh.add(section);
-                    this.sections.push(section);
                     this.z -= this.distance
 
                 }
@@ -64,9 +65,7 @@ export default class ObstacleSystem {
             }
         }
         const pos = new Position(0, 0.2, z)
-        group.position.set(pos.x,
-            pos.y,
-            pos.z)
+        group.position.set(pos.x, pos.y, pos.z)
         return group;
     }
 }

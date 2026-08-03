@@ -5,6 +5,7 @@ export const gameSetting = {
         near: 0.1,
         far: 50,
         position: [0, 1, 7.5],
+        lokAt:[0, 2, 0],
     },
     light: {
         color: 0xFFFFFF,
@@ -17,9 +18,10 @@ export const gameSetting = {
         color: 0x44aa88,
     },
     obstacle: {
-        position: [35, 0.2],
         size: [0.4,0.4,0.4],
         color: 'red',
+        startZ:-10,
+        distance:5,
     },
     road: {
         texture: '/loader.jpg',
@@ -40,6 +42,4 @@ export const gameSetting = {
         far: 40,
         color:'black',
     },
-
-
 }

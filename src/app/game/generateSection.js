@@ -1,25 +1,41 @@
+import Shuffle from "@/app/game/shuffle";
+
 export default class GenerateSection {
-    constructor(lanes = 3, obstacleChance = 0.5) {
+    constructor(lanes = 3) {
         this.lanes = lanes;
-        this.obstacleChance = obstacleChance;
-        this.safeLane = Math.floor(lanes / 2);
+        this.currentLine = Math.floor(lanes / 2);
+        this.way = [];
+        this.minStraight = 2;
+        this.maxStraight = 6;
+        this.shuffle = new Shuffle();
+        this.currentStraight= 0
+        for(let i = 0; i < 10; i++) {this.nextSection()}
     }
 
+
     nextSection() {
-        const random = Math.round(Math.random());
-        if (random === 0 && this.safeLane > 0) {
-            this.safeLane--;
-        } else if (random === 1 && this.safeLane < this.lanes - 1) {
-            this.safeLane++;
+        if(this.currentStraight===0){
+            this.changeLane()
+            this.currentStraight = this.shuffle.randomInt(this.minStraight, this.maxStraight);
         }
-        const section = new Array(this.lanes).fill(1);
-        for (let lane = 0; lane < this.lanes; lane++) {
-            if (lane === this.safeLane)
-                continue;
-            if (Math.random() < this.obstacleChance) {
-                section[lane] = 0;
-            }
-        }
+        this.currentStraight--
+        const section = new Array(this.lanes).fill(0);
+        section[this.currentLine] = 1;
         return section;
+        // this.way.push(section)
+        // console.log(this.way)
+
     }
+
+    changeLane() {
+        let direction = this.shuffle.randomDirection();
+        if (this.currentLine === 0) {
+            direction = 1
+        }
+        if (this.currentLine === this.lanes - 1) {
+            direction = -1
+        }
+        this.currentLine += direction
+    }
+
 }

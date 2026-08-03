@@ -1,7 +1,6 @@
 export default class RenderSystem {
-    constructor(scene, world) {
+    constructor(scene) {
         this.scene = scene;
-        this.world = world;
     }
 
     update(entities) {
