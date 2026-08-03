@@ -4,17 +4,14 @@ export default class GenerateSection {
     constructor(lanes = 3) {
         this.lanes = lanes;
         this.currentLine = Math.floor(lanes / 2);
-        this.way = [];
         this.minStraight = 2;
         this.maxStraight = 6;
         this.shuffle = new Shuffle();
-        this.currentStraight= 0
-        for(let i = 0; i < 10; i++) {this.nextSection()}
+        this.currentStraight = 0
     }
 
-
     nextSection() {
-        if(this.currentStraight===0){
+        if (this.currentStraight === 0) {
             this.changeLane()
             this.currentStraight = this.shuffle.randomInt(this.minStraight, this.maxStraight);
         }
@@ -22,9 +19,6 @@ export default class GenerateSection {
         const section = new Array(this.lanes).fill(0);
         section[this.currentLine] = 1;
         return section;
-        // this.way.push(section)
-        // console.log(this.way)
-
     }
 
     changeLane() {

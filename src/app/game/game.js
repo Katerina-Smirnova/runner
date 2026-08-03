@@ -20,7 +20,7 @@ import ObstacleSystem from "@/app/game/system/obstacleSystem";
 import {OrbitControls} from "three/addons";
 import GenerateSection from "@/app/game/generateSection";
 import SafeWaySystem from "@/app/game/system/safeWaySystem";
-import Way from "@/app/game/components/way";
+
 
 export class Game {
     constructor() {
@@ -60,7 +60,6 @@ export class Game {
         this.roadEntity.add("Road", new Road(this.roadSegments))
         this.roadEntity.add('EventInput', new EventInput())
         this.roadEntity.add('Movement', new Movement())
-        // this.roadEntity.add('Way', new Way())
 
         this.world.addEntity(this.ballEntity);
         this.world.addEntity(this.roadEntity);

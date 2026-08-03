@@ -6,37 +6,44 @@ import {gameSetting} from "@/app/game/gameSetting";
 export default class ObstacleSystem {
     constructor(world) {
         this.world = world;
+        this.subscribe()
         this.create()
+    }
 
+    subscribe() {
+        for (const entity of this.world.entities) {
+            const road = entity.get("Road");
+            const visual = entity.get("Visual")
+            if (!visual || !road) continue;
+            road.addObserver((event, section) => {
+                if (event === 'addSafeWay') {
+                    this.addObstacles(section, visual.mesh);
+                } else if (event === 'removeSafeWay') {
+                    this.removeObstacles(section, visual.mesh);
+                }
+            })
+        }
     }
 
     create() {
         for (const entity of this.world.entities) {
             const road = entity.get("Road");
             const visual = entity.get("Visual")
-            if (!road) continue;
+            if (!visual || !road) continue;
             for (const safeWay of road.safeWay) {
-                safeWay.obstacles = this.createSection(safeWay.path, safeWay.positionZ);
-                visual.mesh.add(safeWay.obstacles);
+                this.addObstacles(safeWay, visual.mesh)
             }
         }
     }
 
-    update(entities) {
-        for (const entity of entities) {
-            const road = entity.get("Road");
-            const visual = entity.get("Visual")
-            if (!road) continue;
-            if (road.isChanged) {
-                const first = road.safeWay[0];
-                visual.mesh.remove(first.obstacle);
-                const last = road.safeWay[road.safeWay.length - 1];
-                last.obstacle = this.createSection(last.path, last.positionZ);
-                visual.mesh.add(last.obstacle);
-                road.safeWay.shift()
-                road.isChanged=false;
+    addObstacles(section, mesh) {
+        section.obstacles = this.createSection(section.path, section.positionZ);
+        mesh.add(section.obstacles);
+    }
 
-            }
+    removeObstacles(section, mesh) {
+        if (section.obstacles) {
+            mesh.remove(section.obstacles);
         }
     }
 

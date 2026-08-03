@@ -20,8 +20,6 @@ export const gameSetting = {
     obstacle: {
         size: [0.4,0.4,0.4],
         color: 'red',
-        startZ:-10,
-        distance:5,
     },
     road: {
         texture: '/loader.jpg',
@@ -42,4 +40,8 @@ export const gameSetting = {
         far: 40,
         color:'black',
     },
+    safeWay:{
+        startZ:-10,
+        distance:5,
+    }
 }

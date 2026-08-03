@@ -6,17 +6,14 @@ export default class MovementSystem {
             const movement = entity.get("Movement");
             const input = entity.get("EventInput");
             const position = entity.get("Position");
-            if (movement) {
-                if (input.direction === 'right' && position.x <= gameSetting.line.center) {
-                    movement.dx = 1;
-                    input.direction = null;
-                } else if (input.direction === 'left' && position.x >= gameSetting.line.center) {
-                    movement.dx = -1;
-                    input.direction = null;
-                }
-
+            if (!movement) continue;
+            if (input.direction === 'right' && position.x <= gameSetting.line.center) {
+                movement.dx = 1;
+                input.direction = null;
+            } else if (input.direction === 'left' && position.x >= gameSetting.line.center) {
+                movement.dx = -1;
+                input.direction = null;
             }
-
         }
     }
 }
