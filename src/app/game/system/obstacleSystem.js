@@ -1,80 +1,86 @@
-import {Box3, BoxGeometry, BoxHelper, Group, Mesh, MeshPhongMaterial} from "three";
+import {
+    BoxGeometry,
+    Group,
+    Mesh,
+    MeshPhongMaterial,
+} from "three";
 import Position from "@/app/game/components/position";
 import {gameSetting} from "@/app/game/gameSetting";
 import CollisionSystem from "@/app/game/system/CollisionsSystem";
 
-
 export default class ObstacleSystem {
     constructor(world) {
         this.world = world;
-        this.subscribe()
-        this.create()
+        this.subscribe();
+        this.create();
     }
 
     subscribe() {
         for (const entity of this.world.entities) {
             const road = entity.get("Road");
-            const visual = entity.get("Visual")
-            if (!visual || !road) continue;
+            const visual = entity.get("Visual");
+            if (!road || !visual) continue;
             road.addObserver((event, section) => {
-                if (event === 'addSafeWay') {
-                    this.addObstacles(section, visual.mesh);
-                } else if (event === 'removeSafeWay') {
-                    this.removeObstacles(section, visual.mesh);
+                if (event === "addSafeWay") {
+                    this.addObjects(section, visual.mesh);
                 }
-            })
+                if (event === "removeSafeWay") {
+                    this.removeObjects(section, visual.mesh);
+                }
+            });
         }
     }
 
     create() {
         for (const entity of this.world.entities) {
             const road = entity.get("Road");
-            const visual = entity.get("Visual")
-            if (!visual || !road) continue;
-            for (const safeWay of road.safeWay) {
-                this.addObstacles(safeWay, visual.mesh)
-
+            const visual = entity.get("Visual");
+            if (!road || !visual) continue;
+            for (const section of road.safeWay) {
+                this.addObjects(section, visual.mesh);
             }
-            console.log(road.safeWay)
         }
-
-        const collision = new CollisionSystem(this.world.entities);
-        // collision.getAllObstacles()
+        // new CollisionSystem(this.world.entities);
     }
 
-    addObstacles(section, mesh) {
-        section.obstacles = this.createSection(section.path, section.positionZ);
-        mesh.add(section.obstacles);
+    addObjects(section, mesh) {
+        section.objects = this.createSection(section.path, section.positionZ);
+        mesh.add(section.objects);
     }
 
-    removeObstacles(section, mesh) {
-        if (section.obstacles) {
-            mesh.remove(section.obstacles);
-        }
+    removeObjects(section, mesh) {
+        if (!section.objects) return;
+        mesh.remove(section.objects);
     }
 
     createObstacle() {
         const geometry = new BoxGeometry(...gameSetting.obstacle.size);
-        const material = new MeshPhongMaterial({color: gameSetting.obstacle.color});
-        return new Mesh(geometry, material);
-
+        const material = new MeshPhongMaterial({
+            color: gameSetting.obstacle.color,
+        });
+        const obstacle = new Mesh(geometry, material);
+        obstacle.userData.type = "obstacle";
+        return obstacle;
     }
 
-    createSection(section, z) {
-        const group = new Group()
-        const obstacleChance = 0.5
-        for (let lane = 0; lane < section.length; lane++) {
-            if (section[lane] === 1) continue;
-
+    createSection(path, z) {
+        const group = new Group();
+        const obstacleChance = 0.5;
+        for (let lane = 0; lane < path.length; lane++) {
+            if (path[lane] === 1) continue;
             if (Math.random() < obstacleChance) {
-                const obstacleMesh = this.createObstacle();
-                obstacleMesh.position.set(lane - 1, 0, 0);
-                const box = new Box3().setFromObject(obstacleMesh);
-                group.add(obstacleMesh);
+                const obstacle = this.createObstacle();
+                obstacle.position.set(lane - 1, 0, 0,);
+                group.add(obstacle);
             }
         }
-        const pos = new Position(0, 0.2, z)
-        group.position.set(pos.x, pos.y, pos.z)
+        const position = new Position(0, 0.2, z);
+        group.position.set(
+            position.x,
+            position.y,
+            position.z,
+        );
+
         return group;
     }
 }

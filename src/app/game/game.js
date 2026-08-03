@@ -76,7 +76,7 @@ export class Game {
         this.world.addSystem(new RoadSystem())
         this.world.addSystem(new SafeWaySystem(this.world))
         this.world.addSystem(new ObstacleSystem(this.world))
-        // this.world.addSystem(new CollisionSystem(this.world))
+        this.world.addSystem(new CollisionSystem(this.world))
         requestAnimationFrame(this.render);
     }
 
