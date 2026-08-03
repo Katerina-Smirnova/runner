@@ -60,7 +60,7 @@ export class Game {
         this.roadEntity.add("Road", new Road(this.roadSegments))
         this.roadEntity.add('EventInput', new EventInput())
         this.roadEntity.add('Movement', new Movement())
-        this.roadEntity.add('Way', new Way())
+        // this.roadEntity.add('Way', new Way())
 
         this.world.addEntity(this.ballEntity);
         this.world.addEntity(this.roadEntity);
@@ -71,7 +71,7 @@ export class Game {
         this.world.addSystem(new RenderSystem(this.scene))
         this.world.addSystem(new RoadSystem())
         this.world.addSystem(new SafeWaySystem(this.world))
-        // this.world.addSystem(new ObstacleSystem(this.world))
+        this.world.addSystem(new ObstacleSystem(this.world))
         requestAnimationFrame(this.render);
     }
 

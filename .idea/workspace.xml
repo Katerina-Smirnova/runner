@@ -5,17 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6d1bce30-2716-4079-8467-6920eb1b066b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/app/game/components/way.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/game/shuffle.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/game/system/safeWaySystem.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/game/components/rode.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/components/rode.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/game/game.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/game.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/game/gameSetting.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/gameSetting.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/game/generateSection.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/generateSection.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/game/system/obstacleSystem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/system/obstacleSystem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/game/system/positionSystem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/system/positionSystem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/game/system/renderSystem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/system/renderSystem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/game/system/safeWaySystem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/system/safeWaySystem.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -153,7 +147,7 @@
       <option name="presentableId" value="Default" />
       <updated>1785395262020</updated>
       <workItem from="1785395263110" duration="27750000" />
-      <workItem from="1785740269149" duration="10759000" />
+      <workItem from="1785740269149" duration="15957000" />
     </task>
     <servers />
   </component>

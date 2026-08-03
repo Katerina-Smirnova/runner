@@ -1,7 +1,8 @@
 export default class Road {
-    constructor(section) {
-        this.sections = section;
-        this.obstacles = [];
+    constructor(sections) {
+        this.sections = sections;
+        this.safeWay =[]
         this.speed = 0.1
+        this.isChanged=false
     }
 }

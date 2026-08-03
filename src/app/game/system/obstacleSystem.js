@@ -1,29 +1,23 @@
 import {BoxGeometry, Group, Mesh, MeshPhongMaterial} from "three";
 import Position from "@/app/game/components/position";
 import {gameSetting} from "@/app/game/gameSetting";
-import GenerateSection from "@/app/game/generateSection";
+
 
 export default class ObstacleSystem {
     constructor(world) {
         this.world = world;
-        this.z = gameSetting.obstacle.startZ
-        this.distance = gameSetting.obstacle.distance;
-        this.generateLevel = new GenerateSection();
-        // this.create()
+        this.create()
+
     }
-    create(){
-        for(const entity of this.world.entities){
+
+    create() {
+        for (const entity of this.world.entities) {
             const road = entity.get("Road");
             const visual = entity.get("Visual")
-            const wayComponent = entity.get("Way");
-            if(road){
-                const obstacles = road.obstacles;
-                for (let i = 0; i < 10; i++) {
-                    const section = this.createSection(wayComponent.way[i], this.z)
-                    obstacles.push(section);
-                    visual.mesh.add(section);
-                    this.z -= this.distance
-                }
+            if (!road) continue;
+            for (const safeWay of road.safeWay) {
+                safeWay.obstacles = this.createSection(safeWay.path, safeWay.positionZ);
+                visual.mesh.add(safeWay.obstacles);
             }
         }
     }
@@ -32,17 +26,16 @@ export default class ObstacleSystem {
         for (const entity of entities) {
             const road = entity.get("Road");
             const visual = entity.get("Visual")
-            if (road) {
-                const obstacles = road.obstacles;
-                if (visual.mesh.position.z > (-obstacles[0].position.z+this.distance*3)) {
-                    obstacles.shift()
-                    visual.mesh.remove(obstacles[0])
-                    const section = this.createSection(this.generateLevel.nextSection(), this.z)
-                    obstacles.push(section);
-                    visual.mesh.add(section);
-                    this.z -= this.distance
+            if (!road) continue;
+            if (road.isChanged) {
+                const first = road.safeWay[0];
+                visual.mesh.remove(first.obstacle);
+                const last = road.safeWay[road.safeWay.length - 1];
+                last.obstacle = this.createSection(last.path, last.positionZ);
+                visual.mesh.add(last.obstacle);
+                road.safeWay.shift()
+                road.isChanged=false;
 
-                }
             }
         }
     }
@@ -56,11 +49,13 @@ export default class ObstacleSystem {
 
     createSection(section, z) {
         const group = new Group()
-
+        const obstacleChance = 0.5
         for (let lane = 0; lane < section.length; lane++) {
-            if (section[lane] === 0) {
+            if (section[lane] === 1) continue;
+
+            if (Math.random() < obstacleChance) {
                 const obstacleMesh = this.createObstacle();
-                obstacleMesh.position.set(lane - 1, 0, 0)
+                obstacleMesh.position.set(lane - 1, 0, 0);
                 group.add(obstacleMesh);
             }
         }
