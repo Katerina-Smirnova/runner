@@ -14,7 +14,7 @@ export const gameSetting = {
     },
     ball: {
         position: [0,0.25,4.5],
-        size: [0.3, 16, 8],
+        size: [0.3, 32, 16],
         color: 0x44aa88,
     },
     obstacle: {

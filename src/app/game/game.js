@@ -1,6 +1,7 @@
 import {
     PerspectiveCamera, Scene, WebGLRenderer, Mesh, MeshPhongMaterial, DirectionalLight, TextureLoader,
-    RepeatWrapping, PlaneGeometry, DoubleSide, SphereGeometry, Group, Fog, Color, BoxGeometry,
+    RepeatWrapping, PlaneGeometry, DoubleSide, SphereGeometry, Group, Fog, Color, BoxGeometry, Box3, BoxHelper,
+    Box3 as Shere,
 } from "three";
 import {gameSetting} from "@/app/game/gameSetting";
 import Entity from "@/app/game/entity/entity";
@@ -20,6 +21,8 @@ import ObstacleSystem from "@/app/game/system/obstacleSystem";
 import {OrbitControls} from "three/addons";
 import GenerateSection from "@/app/game/generateSection";
 import SafeWaySystem from "@/app/game/system/safeWaySystem";
+import Collision from "@/app/game/components/collisions";
+import CollisionSystem from "@/app/game/system/CollisionsSystem";
 
 
 export class Game {
@@ -30,9 +33,9 @@ export class Game {
         this.render = this.render.bind(this);
         this.world = null;
         this.groupWorld = new Group()
-        this.roadEntity = new Entity();
+        this.roadEntity = new Entity('road');
         this.roadSegments=[];
-        this. ballEntity = new Entity()
+        this. ballEntity = new Entity('ball')
     }
 
     init(canvas) {
@@ -44,15 +47,17 @@ export class Game {
         this.createFog()
         this.createRoad()
 
-        // const controls = new OrbitControls(this.camera, canvas);
-        // controls.target.set(0, 0, 0);
-        // controls.update();
+        const controls = new OrbitControls(this.camera, canvas);
+        controls.target.set(0, 0, 0);
+        controls.update();
         const generator = new GenerateSection
 
         generator.nextSection()
-
-        this.ballEntity.add('Visual', new Visual(this.createBall()))
+        const ball= this.createBall()
+        this.ballEntity.add('Visual', new Visual(ball))
         this.ballEntity.add('Position', new Position(...gameSetting.ball.position))
+        const box = new Shere().setFromObject(ball)
+        // this.ballEntity.add("Collision", new Collision(ball, this.ballEntity))
         this.ballEntity.add("Rotation", new Rotation())
 
         this.roadEntity.add('Visual',  new Visual(this.groupWorld))
@@ -71,6 +76,7 @@ export class Game {
         this.world.addSystem(new RoadSystem())
         this.world.addSystem(new SafeWaySystem(this.world))
         this.world.addSystem(new ObstacleSystem(this.world))
+        // this.world.addSystem(new CollisionSystem(this.world))
         requestAnimationFrame(this.render);
     }
 
@@ -122,7 +128,6 @@ export class Game {
         const material = new MeshPhongMaterial({color: gameSetting.ball.color});
         return new Mesh(geometry, material);
     }
-
     destroy() {
         this.scene.remove.apply(this.scene, this.scene.children);
     }

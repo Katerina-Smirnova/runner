@@ -1,6 +1,7 @@
-import {BoxGeometry, Group, Mesh, MeshPhongMaterial} from "three";
+import {Box3, BoxGeometry, BoxHelper, Group, Mesh, MeshPhongMaterial} from "three";
 import Position from "@/app/game/components/position";
 import {gameSetting} from "@/app/game/gameSetting";
+import CollisionSystem from "@/app/game/system/CollisionsSystem";
 
 
 export default class ObstacleSystem {
@@ -32,8 +33,13 @@ export default class ObstacleSystem {
             if (!visual || !road) continue;
             for (const safeWay of road.safeWay) {
                 this.addObstacles(safeWay, visual.mesh)
+
             }
+            console.log(road.safeWay)
         }
+
+        const collision = new CollisionSystem(this.world.entities);
+        // collision.getAllObstacles()
     }
 
     addObstacles(section, mesh) {
@@ -63,6 +69,7 @@ export default class ObstacleSystem {
             if (Math.random() < obstacleChance) {
                 const obstacleMesh = this.createObstacle();
                 obstacleMesh.position.set(lane - 1, 0, 0);
+                const box = new Box3().setFromObject(obstacleMesh);
                 group.add(obstacleMesh);
             }
         }

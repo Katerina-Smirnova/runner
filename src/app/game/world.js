@@ -43,6 +43,10 @@ export default class World {
 
         });
     }
+    searchName(name){
+        return this.entities.filter(entity => {entity.name = name});
+    }
+
 
     query(...components) {
         return this.entities.filter(entity =>

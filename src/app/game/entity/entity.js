@@ -1,7 +1,8 @@
 export default class Entity {
-    constructor() {
+    constructor(name) {
         this.components = new Map();
         this.destroy = false;
+        this.name = name;
     }
     add(key, component) {
         this.components.set(key, component);
@@ -9,5 +10,8 @@ export default class Entity {
 
     get(type) {
         return this.components.get(type);
+    }
+    getName(){
+        return this.name
     }
 }
