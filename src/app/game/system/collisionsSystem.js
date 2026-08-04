@@ -47,7 +47,7 @@ export default class CollisionSystem {
         switch (object.userData.type) {
             case "obstacle":
                 this.world.stopPlay()
-                console.log("Game over")
+                // console.log("Game over")
                 break;
             case"coin":
                 this.world.countCoins += 1

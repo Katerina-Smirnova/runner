@@ -65,9 +65,9 @@ export class Game {
         this.scene.add(label);
 
 
-        // const controls = new OrbitControls(this.camera, canvas);
-        // controls.target.set(0, 2, 0);
-        // controls.update();
+        const controls = new OrbitControls(this.camera, canvas);
+        controls.target.set(0, 2, 0);
+        controls.update();
         const generator = new GenerateSection
 
         generator.nextSection()
