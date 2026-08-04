@@ -62,13 +62,12 @@ export default class ObstacleSystem {
     createEntity(x, y, z, parentGroup) {
         const position= new Position(x, y, z)
         const mesh = new Mesh(this.geometry, this.material);
-        // mesh.userData.type = "obstacle";
         mesh.position.set(x, y, z);
         parentGroup.add(mesh);
         const entity = new Entity("Obstacle");
         entity.add("Position", position);
         entity.add("Visual", new Visual(mesh));
-        // entity.add("Parent", parentGroup);
+        entity.add("ParentGroup", parentGroup);
         entity.add("Collider", new Collider(...gameSetting.obstacle.size));
         return entity;
 

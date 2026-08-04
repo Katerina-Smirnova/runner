@@ -12,7 +12,7 @@ export default class CoinsSystem {
         this.geometry = new CylinderGeometry(...gameSetting.coin.size);
         this.material = new MeshPhongMaterial({
                     color: gameSetting.coin.color,
-                });
+        });
         this.subscribe();
         this.create();
     }
@@ -41,7 +41,6 @@ export default class CoinsSystem {
         }
     }
 
-
     createCoin(section) {
         const coinChance = 0.5;
         for (let lane = 0; lane < section.path.length; lane++) {
@@ -61,8 +60,8 @@ export default class CoinsSystem {
         const entity = new Entity("Coin");
         entity.add("Position", new Position(x, y, z));
         entity.add("Visual", new Visual(mesh));
-        // entity.add("Parent", parentGroup);
-        entity.add("Collider", new Collider(mesh));
+        entity.add("ParentGroup", parentGroup);
+        entity.add("Collider", new Collider(...gameSetting.coin.size));
         return entity;
 
     }

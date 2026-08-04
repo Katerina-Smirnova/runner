@@ -5,8 +5,7 @@ import gsap from "gsap";
 
 export default class CollisionSystem {
     constructor(world) {
-        this.world = world;;
-        this.objectPos = new Vector3();
+        this.world = world;
     }
 
     update(entities) {
@@ -18,7 +17,6 @@ export default class CollisionSystem {
             entity.get("Collider") &&
             entity.get("Position")
         );
-        // console.log('collidable', collidable);
 
         for (const entity of collidable) {
             if (!this.checkCollision(ball, entity))
@@ -29,24 +27,36 @@ export default class CollisionSystem {
     }
 
     checkCollision(firstEntity, secondEntity) {
-        const firstMesh = firstEntity.get("Visual").mesh;
-        const secondMesh = secondEntity.get("Visual").mesh;
-
-        const firstPos = firstMesh.getWorldPosition(new Vector3());
-        const secondPos = secondMesh.getWorldPosition(new Vector3());
+        const firstPos = this.getWorldPosition(firstEntity);
+        const secondPos = this.getWorldPosition(secondEntity);
         const firstCol = firstEntity.get("Collider");
         const secondCol = secondEntity.get("Collider");
 
         return (
-            Math.abs(firstPos.x - secondPos.x) <=
+            Math.abs(firstPos.x - secondPos.x) <
             (firstCol.width + secondCol.width) / 2 &&
 
-            Math.abs(firstPos.y - secondPos.y) <=
+            Math.abs(firstPos.y - secondPos.y) <
             (firstCol.height + secondCol.height) / 2 &&
 
-            Math.abs(firstPos.z - secondPos.z) <=
+            Math.abs(firstPos.z - secondPos.z) <
             (firstCol.depth + secondCol.depth) / 2
         );
+    }
+    getWorldPosition(entity) {
+        const pos = entity.get("Position");
+        if (!pos) return null;
+        const parentGroup = entity.get("ParentGroup");
+        if (parentGroup) {
+            const groupWorldPos = new Vector3();
+            parentGroup.getWorldPosition(groupWorldPos);
+            return {
+                x: pos.x + groupWorldPos.x,
+                y: pos.y + groupWorldPos.y,
+                z: pos.z + groupWorldPos.z
+            };
+        }
+        return pos;
     }
 
     onCollision(object) {
@@ -57,17 +67,12 @@ export default class CollisionSystem {
                 break;
             case "Coin":
                 this.world.countCoins++;
-
                 gsap.to(mesh.position, {
                     y: mesh.position.y + 2,
-                    z: mesh.position.z + 2,
+                    z: mesh.position.z - 1,
                     duration: 0.5,
                     ease: "power2.out",
-                    // onComplete: () => {
-                    //    this.world.removeEntities(object)
-                    // }
                 });
-
                 break;
         }
     }
