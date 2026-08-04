@@ -1,7 +1,6 @@
 import {
     PerspectiveCamera, Scene, WebGLRenderer, Mesh, MeshPhongMaterial, DirectionalLight, TextureLoader,
-    RepeatWrapping, PlaneGeometry, DoubleSide, SphereGeometry, Group, Fog, Color, BoxGeometry, Box3, BoxHelper,
-    Box3 as Shere,
+    RepeatWrapping, PlaneGeometry, DoubleSide, SphereGeometry, Group, Fog, Color,
 } from "three";
 import {gameSetting} from "@/app/game/gameSetting";
 import Entity from "@/app/game/entity/entity";
@@ -21,7 +20,6 @@ import ObstacleSystem from "@/app/game/system/obstacleSystem";
 import {OrbitControls} from "three/addons";
 import GenerateSection from "@/app/game/generateSection";
 import SafeWaySystem from "@/app/game/system/safeWaySystem";
-import Collision from "@/app/game/components/collisions";
 import CollisionSystem from "@/app/game/system/collisionsSystem";
 
 
@@ -56,8 +54,6 @@ export class Game {
         const ball= this.createBall()
         this.ballEntity.add('Visual', new Visual(ball))
         this.ballEntity.add('Position', new Position(...gameSetting.ball.position))
-        const box = new Shere().setFromObject(ball)
-        // this.ballEntity.add("Collision", new Collision(ball, this.ballEntity))
         this.ballEntity.add("Rotation", new Rotation())
 
         this.roadEntity.add('Visual',  new Visual(this.groupWorld))
