@@ -1,5 +1,6 @@
 import {Sphere, Vector3} from "three";
 import {gameSetting} from "@/app/game/gameSetting";
+import gsap from "gsap";
 
 
 export default class CollisionSystem {
@@ -49,8 +50,18 @@ export default class CollisionSystem {
                 console.log("Game over")
                 break;
             case"coin":
-                road.safeWay.forEach((section) => {section.objects.remove(object)})
                 this.world.countCoins += 1
+                gsap.to(object.position, {
+                    y: this.objectPos.y + 2,
+                    Z: this.objectPos.z + 2,
+                    duration: 0.8,
+                    ease: "power2.out",
+                    onComplete: () => {
+                        road.safeWay.forEach((section) => {
+                            section.objects.remove(object)
+                        })
+                    }
+                })
                 break;
 
 
