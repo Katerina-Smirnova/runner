@@ -6,7 +6,7 @@ import {
 } from "three";
 import Position from "@/app/game/components/position";
 import {gameSetting} from "@/app/game/gameSetting";
-import CollisionSystem from "@/app/game/system/CollisionsSystem";
+import CollisionSystem from "@/app/game/system/collisionsSystem";
 
 export default class ObstacleSystem {
     constructor(world) {
@@ -72,6 +72,7 @@ export default class ObstacleSystem {
                 const obstacle = this.createObstacle();
                 obstacle.position.set(lane - 1, 0, 0,);
                 group.add(obstacle);
+                path[lane] = 2;
             }
         }
         const position = new Position(0, 0.2, z);

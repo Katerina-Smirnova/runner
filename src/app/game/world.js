@@ -43,23 +43,22 @@ export default class World {
 
         });
     }
-    searchName(name){
-        return this.entities.filter(entity => {entity.name = name});
-    }
-
-
     query(...components) {
         return this.entities.filter(entity =>
             components.every(name => entity.components.has(name))
         );
     }
 
-    update(dt) {
+    update() {
         for (const system of this.systems) {
             if (Reflect.has(system, "update")) {
-                system.update(this.entities, dt);
+                system.update(this.entities);
             }
         }
         this.removeEntities();
+    }
+    stopPlay(){
+        this.entities = []
+        this.systems = []
     }
 }

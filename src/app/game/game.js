@@ -22,7 +22,7 @@ import {OrbitControls} from "three/addons";
 import GenerateSection from "@/app/game/generateSection";
 import SafeWaySystem from "@/app/game/system/safeWaySystem";
 import Collision from "@/app/game/components/collisions";
-import CollisionSystem from "@/app/game/system/CollisionsSystem";
+import CollisionSystem from "@/app/game/system/collisionsSystem";
 
 
 export class Game {
