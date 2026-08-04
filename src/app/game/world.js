@@ -1,6 +1,7 @@
 export default class World {
     entities = [];
     systems = [];
+    countCoins = 0;
 
     addEntity(entity) {
         this.entities.push(entity);
@@ -60,5 +61,6 @@ export default class World {
     stopPlay(){
         this.entities = []
         this.systems = []
+        this.countCoins = 0
     }
 }

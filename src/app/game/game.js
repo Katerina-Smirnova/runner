@@ -17,10 +17,11 @@ import Rotation from "@/app/game/components/rotation";
 import Road from "@/app/game/components/rode";
 import RoadSystem from "@/app/game/system/roadSystem";
 import ObstacleSystem from "@/app/game/system/obstacleSystem";
-import {OrbitControls} from "three/addons";
+import {CSS2DObject, CSS2DRenderer, OrbitControls} from "three/addons";
 import GenerateSection from "@/app/game/generateSection";
 import SafeWaySystem from "@/app/game/system/safeWaySystem";
 import CollisionSystem from "@/app/game/system/collisionsSystem";
+import CoinsSystem from "@/app/game/system/coinsSystem";
 
 
 export class Game {
@@ -33,7 +34,9 @@ export class Game {
         this.groupWorld = new Group()
         this.roadEntity = new Entity('road');
         this.roadSegments=[];
-        this. ballEntity = new Entity('ball')
+        this. ballEntity = new Entity('ball');
+        this.labelRenderer = null
+        this.scoreLabel = null
     }
 
     init(canvas) {
@@ -45,8 +48,25 @@ export class Game {
         this.createFog()
         this.createRoad()
 
+        this.labelRenderer = new CSS2DRenderer();
+        this.labelRenderer.setSize( canvas.clientWidth, canvas.clientHeight);
+        this.labelRenderer.domElement.style.position = 'absolute';
+        this.labelRenderer.domElement.style.top = '0';
+        this.labelRenderer.domElement.style.pointerEvents = 'none';
+        canvas.parentElement.appendChild( this.labelRenderer.domElement );
+        this.scoreLabel = document.createElement('div');
+        this.scoreLabel.className = 'label';
+        this.scoreLabel.style.color = 'white';
+        this.scoreLabel.style.fontSize = '50px';
+        this.scoreLabel.textContent = `Счет: ${this.world.countCoins}`;
+
+        const label = new CSS2DObject(this.scoreLabel);
+        label.position.set(0, 5, 0);
+        this.scene.add(label);
+
+
         const controls = new OrbitControls(this.camera, canvas);
-        controls.target.set(0, 0, 0);
+        controls.target.set(0, 2, 0);
         controls.update();
         const generator = new GenerateSection
 
@@ -73,6 +93,7 @@ export class Game {
         this.world.addSystem(new SafeWaySystem(this.world))
         this.world.addSystem(new ObstacleSystem(this.world))
         this.world.addSystem(new CollisionSystem(this.world))
+        this.world.addSystem(new CoinsSystem(this.world))
         requestAnimationFrame(this.render);
     }
 
@@ -146,7 +167,10 @@ export class Game {
             this.camera.updateProjectionMatrix();
         }
         this.world.update();
+        this.scoreLabel.textContent = `Счет: ${this.world.countCoins}`;
+        this.labelRenderer.render(this.scene, this.camera);
         this.renderer.render(this.scene, this.camera);
+
         requestAnimationFrame(this.render);
     }
 }

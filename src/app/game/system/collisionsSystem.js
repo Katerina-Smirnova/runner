@@ -1,6 +1,7 @@
 import {Sphere, Vector3} from "three";
 import {gameSetting} from "@/app/game/gameSetting";
 
+
 export default class CollisionSystem {
     constructor(world) {
         this.world = world;
@@ -18,10 +19,10 @@ export default class CollisionSystem {
         ball.getWorldPosition(this.vector);
         this.sphere.center.copy(this.vector);
         this.sphere.radius = gameSetting.ball.size[0];
-        for(const group of road.safeWay) {
+        for (const group of road.safeWay) {
             for (const object of group.objects.children) {
                 if (this.checkCollision(this.sphere, object)) {
-                    this.onCollision(object);
+                    this.onCollision(object, road);
                     break;
                 }
             }
@@ -41,12 +42,18 @@ export default class CollisionSystem {
         return distance < collisionRadius;
     }
 
-    onCollision(object) {
+    onCollision(object, road) {
         switch (object.userData.type) {
             case "obstacle":
                 this.world.stopPlay()
                 console.log("Game over")
                 break;
+            case"coin":
+                road.safeWay.forEach((section) => {section.objects.remove(object)})
+                this.world.countCoins += 1
+                break;
+
+
         }
     }
 }

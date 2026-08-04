@@ -16,7 +16,7 @@ export default class Road {
         this.notifyObservers('addSafeWay',section)
     }
     removeSafeWay(section) {
-        this.notifyObservers('removeSafeWay',section)
+        // this.notifyObservers('removeSafeWay',section)
         this.safeWay.shift()
     }
 }

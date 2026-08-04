@@ -43,5 +43,9 @@ export const gameSetting = {
     safeWay:{
         startZ:-10,
         distance:5,
+    },
+    coin:{
+        size:[0.15,0.15,0.05],
+        color:'yellow',
     }
 }

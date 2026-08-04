@@ -1,14 +1,8 @@
-import {
-    BoxGeometry,
-    Group,
-    Mesh,
-    MeshPhongMaterial,
-} from "three";
-import Position from "@/app/game/components/position";
+import { CylinderGeometry, Mesh, MeshPhongMaterial} from "three";
 import {gameSetting} from "@/app/game/gameSetting";
 import {shuffle} from "@/app/game/shuffle";
 
-export default class ObstacleSystem {
+export default class CoinsSystem {
     constructor(world) {
         this.world = world;
         this.subscribe();
@@ -40,28 +34,28 @@ export default class ObstacleSystem {
     }
 
     addObjects(section) {
-        this.createSection(section.path, section.objects);
+        this.createCoin(section.path, section.objects);
     }
 
-    createObstacle() {
-        const geometry = new BoxGeometry(...gameSetting.obstacle.size);
+    createMesh() {
+        const geometry = new CylinderGeometry(...gameSetting.coin.size);
         const material = new MeshPhongMaterial({
-            color: gameSetting.obstacle.color,
+            color: gameSetting.coin.color,
         });
-        const obstacle = new Mesh(geometry, material);
-        obstacle.userData.type = "obstacle";
-        return obstacle;
+        const coin = new Mesh(geometry, material);
+        coin.rotation.x=1.5
+        coin.userData.type = "coin";
+        return coin;
     }
 
-    createSection(path, objects) {
-        const obstacleChance = 0.5;
+    createCoin(path, objects) {
+        const coinChance = 0.5;
         for (let lane = 0; lane < path.length; lane++) {
-            if (path[lane] === 1) continue;
-            if (shuffle.random() < obstacleChance) {
-                const obstacle = this.createObstacle();
-                obstacle.position.set(lane - 1, 0, 0,);
-                objects.add(obstacle);
-                path[lane] = 2;
+            if (path[lane] === 2) continue;
+            if (shuffle.random() < coinChance) {
+                const coin = this.createMesh();
+                coin.position.set(lane - 1, 0, 0,);
+                objects.add(coin);
             }
         }
     }
