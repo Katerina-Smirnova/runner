@@ -1,4 +1,4 @@
-import Shuffle from "@/app/game/shuffle";
+import {shuffle} from "@/app/game/shuffle";
 
 export default class GenerateSection {
     constructor(lanes = 3) {
@@ -6,14 +6,13 @@ export default class GenerateSection {
         this.currentLine = Math.floor(lanes / 2);
         this.minStraight = 2;
         this.maxStraight = 6;
-        this.shuffle = new Shuffle();
         this.currentStraight = 0
     }
 
     nextSection() {
         if (this.currentStraight === 0) {
             this.changeLane()
-            this.currentStraight = this.shuffle.randomInt(this.minStraight, this.maxStraight);
+            this.currentStraight = shuffle.randomInt(this.minStraight, this.maxStraight);
         }
         this.currentStraight--
         const section = new Array(this.lanes).fill(0);
@@ -22,7 +21,7 @@ export default class GenerateSection {
     }
 
     changeLane() {
-        let direction = this.shuffle.randomDirection();
+        let direction = shuffle.randomDirection();
         if (this.currentLine === 0) {
             direction = 1
         }

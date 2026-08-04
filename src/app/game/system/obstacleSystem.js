@@ -6,7 +6,7 @@ import {
 } from "three";
 import Position from "@/app/game/components/position";
 import {gameSetting} from "@/app/game/gameSetting";
-import CollisionSystem from "@/app/game/system/collisionsSystem";
+import {shuffle} from "@/app/game/shuffle";
 
 export default class ObstacleSystem {
     constructor(world) {
@@ -40,7 +40,6 @@ export default class ObstacleSystem {
                 this.addObjects(section, visual.mesh);
             }
         }
-        // new CollisionSystem(this.world.entities);
     }
 
     addObjects(section, mesh) {
@@ -68,7 +67,7 @@ export default class ObstacleSystem {
         const obstacleChance = 0.5;
         for (let lane = 0; lane < path.length; lane++) {
             if (path[lane] === 1) continue;
-            if (Math.random() < obstacleChance) {
+            if (shuffle.random() < obstacleChance) {
                 const obstacle = this.createObstacle();
                 obstacle.position.set(lane - 1, 0, 0,);
                 group.add(obstacle);
