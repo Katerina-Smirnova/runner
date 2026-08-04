@@ -1,6 +1,6 @@
 import {
     PerspectiveCamera, Scene, WebGLRenderer, Mesh, MeshPhongMaterial, DirectionalLight, TextureLoader,
-    RepeatWrapping, PlaneGeometry, DoubleSide, SphereGeometry, Group, Fog, Color,
+    RepeatWrapping, PlaneGeometry, DoubleSide, SphereGeometry, Group, Fog, Color, Vector3,
 } from "three";
 import {gameSetting} from "@/app/game/gameSetting";
 import Entity from "@/app/game/entity/entity";
@@ -22,6 +22,7 @@ import GenerateSection from "@/app/game/generateSection";
 import SafeWaySystem from "@/app/game/system/safeWaySystem";
 import CollisionSystem from "@/app/game/system/collisionsSystem";
 import CoinsSystem from "@/app/game/system/coinsSystem";
+import Collider from "@/app/game/components/сollider";
 
 
 export class Game {
@@ -72,9 +73,18 @@ export class Game {
 
         generator.nextSection()
         const ball= this.createBall()
-        this.ballEntity.add('Visual', new Visual(ball))
-        this.ballEntity.add('Position', new Position(...gameSetting.ball.position))
-        this.ballEntity.add("Rotation", new Rotation())
+        const position = new Position(...gameSetting.ball.position);
+
+        this.ballEntity.add('Visual', new Visual(ball));
+        this.ballEntity.add('Position', position);
+        this.ballEntity.add("Rotation", new Rotation());
+
+        this.ballEntity.add(
+            "Collider",
+            new Collider(
+               0.3,0.3,0.3
+            )
+        );
 
         this.roadEntity.add('Visual',  new Visual(this.groupWorld))
         this.roadEntity.add('Position', new Position(...gameSetting.road.position))
@@ -93,7 +103,7 @@ export class Game {
         this.world.addSystem(new SafeWaySystem(this.world))
         this.world.addSystem(new ObstacleSystem(this.world))
         this.world.addSystem(new CollisionSystem(this.world))
-        this.world.addSystem(new CoinsSystem(this.world))
+        // this.world.addSystem(new CoinsSystem(this.world))
         requestAnimationFrame(this.render);
     }
 

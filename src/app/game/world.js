@@ -11,24 +11,27 @@ export default class World {
         this.systems.push(system);
     }
 
-    removeEntities() {
-        this.entities = this.entities.filter(entity => {
-            if (!entity.destroy) {
+    removeEntities(entity) {
+        this.entities = this.entities.filter(e => {
+            if (e !== entity) {
                 return true;
             }
-            const visual = entity.get("Visual");
-            if (visual) {
-                if (visual.mesh.parent) {
-                    visual.mesh.parent.remove(visual.mesh);
-                }
-                visual.mesh.traverse((child) => {
 
+            const visual = e.get("Visual");
+
+            if (visual) {
+                const mesh = visual.mesh;
+
+                if (mesh.parent) {
+                    mesh.parent.remove(mesh);
+                }
+
+                mesh.traverse((child) => {
                     if (child.geometry) {
                         child.geometry.dispose();
                     }
 
                     if (child.material) {
-
                         if (Array.isArray(child.material)) {
                             child.material.forEach(material => {
                                 material.dispose();
@@ -38,10 +41,9 @@ export default class World {
                         }
                     }
                 });
-
             }
-            return false;
 
+            return false;
         });
     }
     query(...components) {

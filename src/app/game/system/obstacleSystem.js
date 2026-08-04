@@ -2,15 +2,23 @@ import {
     BoxGeometry,
     Group,
     Mesh,
-    MeshPhongMaterial,
+    MeshPhongMaterial, Vector3,
 } from "three";
 import Position from "@/app/game/components/position";
 import {gameSetting} from "@/app/game/gameSetting";
 import {shuffle} from "@/app/game/shuffle";
+import Entity from "@/app/game/entity/entity";
+import Visual from "@/app/game/components/visual";
+import Collider from "@/app/game/components/сollider";
 
 export default class ObstacleSystem {
     constructor(world) {
         this.world = world;
+        this.geometry = new BoxGeometry(...gameSetting.obstacle.size);
+
+        this.material = new MeshPhongMaterial({
+            color: gameSetting.obstacle.color,
+        });
         this.subscribe();
         this.create();
     }
@@ -22,7 +30,7 @@ export default class ObstacleSystem {
             if (!road || !visual) continue;
             road.addObserver((event, section) => {
                 if (event === "addSafeWay") {
-                    this.addObjects(section);
+                    this.createObstacle(section)
                 }
             });
         }
@@ -34,35 +42,35 @@ export default class ObstacleSystem {
             const visual = entity.get("Visual");
             if (!road || !visual) continue;
             for (const section of road.safeWay) {
-                this.addObjects(section);
+                this.createObstacle(section)
             }
         }
     }
 
-    addObjects(section) {
-        this.createSection(section.path, section.objects);
-    }
-
-    createObstacle() {
-        const geometry = new BoxGeometry(...gameSetting.obstacle.size);
-        const material = new MeshPhongMaterial({
-            color: gameSetting.obstacle.color,
-        });
-        const obstacle = new Mesh(geometry, material);
-        obstacle.userData.type = "obstacle";
-        return obstacle;
-    }
-
-    createSection(path, objects) {
+    createObstacle(section) {
         const obstacleChance = 0.5;
-        for (let lane = 0; lane < path.length; lane++) {
-            if (path[lane] === 1) continue;
+        for (let lane = 0; lane < section.path.length; lane++) {
+            if (section.path[lane] === 1) continue;
             if (shuffle.random() < obstacleChance) {
-                const obstacle = this.createObstacle();
-                obstacle.position.set(lane - 1, 0, 0,);
-                objects.add(obstacle);
-                path[lane] = 2;
+                const obstacle = this.createEntity(lane - 1, 0, 0, section.objects);
+                this.world.entities.push(obstacle);
+                section.entities.push(obstacle)
+                section.path[lane]  = 2;
             }
         }
+    }
+    createEntity(x, y, z, parentGroup) {
+        const position= new Position(x, y, z)
+        const mesh = new Mesh(this.geometry, this.material);
+        // mesh.userData.type = "obstacle";
+        mesh.position.set(x, y, z);
+        parentGroup.add(mesh);
+        const entity = new Entity("Obstacle");
+        entity.add("Position", position);
+        entity.add("Visual", new Visual(mesh));
+        // entity.add("Parent", parentGroup);
+        entity.add("Collider", new Collider(...gameSetting.obstacle.size));
+        return entity;
+
     }
 }

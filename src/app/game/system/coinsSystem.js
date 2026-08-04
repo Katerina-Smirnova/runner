@@ -1,10 +1,18 @@
 import { CylinderGeometry, Mesh, MeshPhongMaterial} from "three";
 import {gameSetting} from "@/app/game/gameSetting";
 import {shuffle} from "@/app/game/shuffle";
+import Entity from "@/app/game/entity/entity";
+import Position from "@/app/game/components/position";
+import Visual from "@/app/game/components/visual";
+import Collider from "@/app/game/components/сollider";
 
 export default class CoinsSystem {
     constructor(world) {
         this.world = world;
+        this.geometry = new CylinderGeometry(...gameSetting.coin.size);
+        this.material = new MeshPhongMaterial({
+                    color: gameSetting.coin.color,
+                });
         this.subscribe();
         this.create();
     }
@@ -16,7 +24,7 @@ export default class CoinsSystem {
             if (!road || !visual) continue;
             road.addObserver((event, section) => {
                 if (event === "addSafeWay") {
-                    this.addObjects(section);
+                    this.createCoin(section);
                 }
             });
         }
@@ -28,35 +36,34 @@ export default class CoinsSystem {
             const visual = entity.get("Visual");
             if (!road || !visual) continue;
             for (const section of road.safeWay) {
-                this.addObjects(section);
+                this.createCoin(section);
             }
         }
     }
 
-    addObjects(section) {
-        this.createCoin(section.path, section.objects);
-    }
 
-    createMesh() {
-        const geometry = new CylinderGeometry(...gameSetting.coin.size);
-        const material = new MeshPhongMaterial({
-            color: gameSetting.coin.color,
-        });
-        const coin = new Mesh(geometry, material);
-        coin.rotation.x=1.5
-        coin.userData.type = "coin";
-        return coin;
-    }
-
-    createCoin(path, objects) {
+    createCoin(section) {
         const coinChance = 0.5;
-        for (let lane = 0; lane < path.length; lane++) {
-            if (path[lane] === 2) continue;
+        for (let lane = 0; lane < section.path.length; lane++) {
+            if (section.path[lane] === 2) continue;
             if (shuffle.random() < coinChance) {
-                const coin = this.createMesh();
-                coin.position.set(lane - 1, 0, 0,);
-                objects.add(coin);
+                const coin = this.createEntity(lane - 1, 0, 0, section.objects);
+                this.world.entities.push(coin);
+                section.entities.push(coin)
             }
         }
+    }
+    createEntity(x, y, z, parentGroup) {
+        const mesh = new Mesh(this.geometry, this.material);
+        mesh.rotation.x=1.5
+        mesh.position.set(x, y, z);
+        parentGroup.add(mesh);
+        const entity = new Entity("Coin");
+        entity.add("Position", new Position(x, y, z));
+        entity.add("Visual", new Visual(mesh));
+        // entity.add("Parent", parentGroup);
+        entity.add("Collider", new Collider(mesh));
+        return entity;
+
     }
 }

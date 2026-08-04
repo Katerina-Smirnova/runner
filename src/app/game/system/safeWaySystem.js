@@ -19,7 +19,7 @@ export default class SafeWaySystem {
             if (!road) continue;
             for (let i = 0; i < 10; i++) {
                 const group = this.createGroup(this.z)
-                const newSection = {path: this.generate.nextSection(), positionZ: this.z, objects:group}
+                const newSection = {path: this.generate.nextSection(), positionZ: this.z, objects:group,entities:[]}
                 road.addSafeWay(newSection);
                 visual.mesh.add(group)
                 this.z -= this.distance;
@@ -33,10 +33,11 @@ export default class SafeWaySystem {
             const visual = entity.get("Visual")
             if (!road) continue;
             if (visual.mesh.position.z > -road.safeWay[0].positionZ + this.distance * 2) {
+                road.safeWay[0].entities.forEach(entity => {this.world.removeEntities(entity)})
                 visual.mesh.remove(road.safeWay[0].objects)
                 road.removeSafeWay(road.safeWay[0])
                 const group = this.createGroup(this.z)
-                const newSection = {path: this.generate.nextSection(), positionZ: this.z, objects:group}
+                const newSection = {path: this.generate.nextSection(), positionZ: this.z, objects:group, entities:[]}
                 road.addSafeWay(newSection);
                 visual.mesh.add(group)
                 this.z -= this.distance

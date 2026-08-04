@@ -5,66 +5,70 @@ import gsap from "gsap";
 
 export default class CollisionSystem {
     constructor(world) {
-        this.world = world;
-        this.sphere = new Sphere();
-        this.vector = new Vector3();
+        this.world = world;;
         this.objectPos = new Vector3();
     }
 
     update(entities) {
-        const ballEntity = entities.find(entity => entity.name === 'ball');
-        const roadEntity = entities.find(entity => entity.name === 'road');
-        if (!ballEntity || !roadEntity) return;
-        const ball = ballEntity.get("Visual").mesh;
-        const road = roadEntity.get("Road");
-        ball.getWorldPosition(this.vector);
-        this.sphere.center.copy(this.vector);
-        this.sphere.radius = gameSetting.ball.size[0];
-        for (const group of road.safeWay) {
-            for (const object of group.objects.children) {
-                if (this.checkCollision(this.sphere, object)) {
-                    this.onCollision(object, road);
-                    break;
-                }
-            }
+        const ball = entities.find(e => e.getName() === "ball");
+        if (!ball)
+            return;
+
+        const collidable = entities.filter(entity => entity !== ball &&
+            entity.get("Collider") &&
+            entity.get("Position")
+        );
+        // console.log('collidable', collidable);
+
+        for (const entity of collidable) {
+            if (!this.checkCollision(ball, entity))
+                continue;
+            this.onCollision(entity);
         }
 
     }
 
-    checkCollision(sphere, object) {
-        object.getWorldPosition(this.objectPos);
-        const distance = Math.sqrt(
-            (this.objectPos.x - sphere.center.x) ** 2 +
-            (this.objectPos.y - sphere.center.y) ** 2 +
-            (this.objectPos.z - sphere.center.z) ** 2
+    checkCollision(firstEntity, secondEntity) {
+        const firstMesh = firstEntity.get("Visual").mesh;
+        const secondMesh = secondEntity.get("Visual").mesh;
+
+        const firstPos = firstMesh.getWorldPosition(new Vector3());
+        const secondPos = secondMesh.getWorldPosition(new Vector3());
+        const firstCol = firstEntity.get("Collider");
+        const secondCol = secondEntity.get("Collider");
+
+        return (
+            Math.abs(firstPos.x - secondPos.x) <=
+            (firstCol.width + secondCol.width) / 2 &&
+
+            Math.abs(firstPos.y - secondPos.y) <=
+            (firstCol.height + secondCol.height) / 2 &&
+
+            Math.abs(firstPos.z - secondPos.z) <=
+            (firstCol.depth + secondCol.depth) / 2
         );
-        const objectSize = 0.3;
-        const collisionRadius = sphere.radius + objectSize;
-        return distance < collisionRadius;
     }
 
-    onCollision(object, road) {
-        switch (object.userData.type) {
-            case "obstacle":
+    onCollision(object) {
+        const mesh = object.get("Visual").mesh;
+        switch (object.name) {
+            case "Obstacle":
                 this.world.stopPlay()
-                // console.log("Game over")
                 break;
-            case"coin":
-                this.world.countCoins += 1
-                gsap.to(object.position, {
-                    y: this.objectPos.y + 2,
-                    Z: this.objectPos.z + 2,
-                    duration: 0.8,
+            case "Coin":
+                this.world.countCoins++;
+
+                gsap.to(mesh.position, {
+                    y: mesh.position.y + 2,
+                    z: mesh.position.z + 2,
+                    duration: 0.5,
                     ease: "power2.out",
-                    onComplete: () => {
-                        road.safeWay.forEach((section) => {
-                            section.objects.remove(object)
-                        })
-                    }
-                })
+                    // onComplete: () => {
+                    //    this.world.removeEntities(object)
+                    // }
+                });
+
                 break;
-
-
         }
     }
 }
