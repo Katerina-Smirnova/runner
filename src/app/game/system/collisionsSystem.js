@@ -1,5 +1,4 @@
-import {Sphere, Vector3} from "three";
-import {gameSetting} from "@/app/game/gameSetting";
+import {Vector3} from "three";
 import gsap from "gsap";
 
 
@@ -13,12 +12,12 @@ export default class CollisionSystem {
         if (!ball)
             return;
 
-        const collidable = entities.filter(entity => entity !== ball &&
+        const objects = entities.filter(entity => entity !== ball &&
             entity.get("Collider") &&
             entity.get("Position")
         );
 
-        for (const entity of collidable) {
+        for (const entity of objects) {
             if (!this.checkCollision(ball, entity))
                 continue;
             this.onCollision(entity);

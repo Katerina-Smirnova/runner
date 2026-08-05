@@ -68,7 +68,7 @@ export default class ObstacleSystem {
         entity.add("Position", position);
         entity.add("Visual", new Visual(mesh));
         entity.add("ParentGroup", parentGroup);
-        entity.add("Collider", new Collider(...gameSetting.obstacle.size));
+        entity.add("Collider", new Collider(...gameSetting.obstacle.collider));
         return entity;
 
     }

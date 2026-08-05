@@ -36,6 +36,7 @@ export default class SafeWaySystem {
                 road.safeWay[0].entities.forEach(entity => {this.world.removeEntities(entity)})
                 visual.mesh.remove(road.safeWay[0].objects)
                 road.removeSafeWay(road.safeWay[0])
+
                 const group = this.createGroup(this.z)
                 const newSection = {path: this.generate.nextSection(), positionZ: this.z, objects:group, entities:[]}
                 road.addSafeWay(newSection);

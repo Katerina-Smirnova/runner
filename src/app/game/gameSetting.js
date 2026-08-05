@@ -16,10 +16,12 @@ export const gameSetting = {
         position: [0,0.25,4.5],
         size: [0.3, 32, 16],
         color: 0x44aa88,
+        collider:[0.3,0.3,0.3]
     },
     obstacle: {
         size: [0.4,0.4,0.4],
         color: 'red',
+        collider:[0.4,0.4,0.4]
     },
     road: {
         texture: '/loader.jpg',
@@ -47,5 +49,10 @@ export const gameSetting = {
     coin:{
         size:[0.15,0.15,0.05],
         color:'yellow',
+    },
+    label:{
+        position:[0, 5, 0],
+        color:'white',
+        size:'50px',
     }
 }

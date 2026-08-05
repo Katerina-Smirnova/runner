@@ -57,12 +57,12 @@ export class Game {
         canvas.parentElement.appendChild( this.labelRenderer.domElement );
         this.scoreLabel = document.createElement('div');
         this.scoreLabel.className = 'label';
-        this.scoreLabel.style.color = 'white';
-        this.scoreLabel.style.fontSize = '50px';
+        this.scoreLabel.style.color = gameSetting.label.color;
+        this.scoreLabel.style.fontSize = gameSetting.label.size;
         this.scoreLabel.textContent = `Счет: ${this.world.countCoins}`;
 
         const label = new CSS2DObject(this.scoreLabel);
-        label.position.set(0, 5, 0);
+        label.position.set(...gameSetting.label.position);
         this.scene.add(label);
 
 
@@ -78,13 +78,7 @@ export class Game {
         this.ballEntity.add('Visual', new Visual(ball));
         this.ballEntity.add('Position', position);
         this.ballEntity.add("Rotation", new Rotation());
-
-        this.ballEntity.add(
-            "Collider",
-            new Collider(
-               0.3,0.3,0.3
-            )
-        );
+        this.ballEntity.add("Collider", new Collider(...gameSetting.ball.collider));
 
         this.roadEntity.add('Visual',  new Visual(this.groupWorld))
         this.roadEntity.add('Position', new Position(...gameSetting.road.position))

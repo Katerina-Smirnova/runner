@@ -4,5 +4,4 @@ export default class Collider {
         this.height = height;
         this.depth = depth;
     }
-
 }
