@@ -26,36 +26,21 @@ export default class CollisionSystem {
     }
 
     checkCollision(firstEntity, secondEntity) {
-        const firstPos = this.getWorldPosition(firstEntity);
-        const secondPos = this.getWorldPosition(secondEntity);
+
+        const secondPos = secondEntity.get("Position");
+        const visual = firstEntity.get("Visual")
+        const firstPos = new Vector3();
+        visual.mesh.getWorldPosition(firstPos);
+
         const firstCol = firstEntity.get("Collider");
         const secondCol = secondEntity.get("Collider");
 
-        return (
-            Math.abs(firstPos.x - secondPos.x) <
+        return (Math.abs(firstPos.x - secondPos.x) <
             (firstCol.width + secondCol.width) / 2 &&
-
             Math.abs(firstPos.y - secondPos.y) <
-            (firstCol.height + secondCol.height) / 2 &&
-
+            (firstCol.height + secondCol.height) /2 &&
             Math.abs(firstPos.z - secondPos.z) <
-            (firstCol.depth + secondCol.depth) / 2
-        );
-    }
-    getWorldPosition(entity) {
-        const pos = entity.get("Position");
-        if (!pos) return null;
-        const parentGroup = entity.get("ParentGroup");
-        if (parentGroup) {
-            const groupWorldPos = new Vector3();
-            parentGroup.getWorldPosition(groupWorldPos);
-            return {
-                x: pos.x + groupWorldPos.x,
-                y: pos.y + groupWorldPos.y,
-                z: pos.z + groupWorldPos.z
-            };
-        }
-        return pos;
+            (firstCol.depth + secondCol.depth) / 2)
     }
 
     onCollision(object) {

@@ -20,8 +20,7 @@ export default class CoinsSystem {
     subscribe() {
         for (const entity of this.world.entities) {
             const road = entity.get("Road");
-            const visual = entity.get("Visual");
-            if (!road || !visual) continue;
+            if (!road) continue;
             road.addObserver((event, section) => {
                 if (event === "addSafeWay") {
                     this.createCoin(section);
@@ -29,12 +28,10 @@ export default class CoinsSystem {
             });
         }
     }
-
     create() {
         for (const entity of this.world.entities) {
             const road = entity.get("Road");
-            const visual = entity.get("Visual");
-            if (!road || !visual) continue;
+            if (!road) continue;
             for (const section of road.safeWay) {
                 this.createCoin(section);
             }
@@ -46,23 +43,20 @@ export default class CoinsSystem {
         for (let lane = 0; lane < section.path.length; lane++) {
             if (section.path[lane] === 2) continue;
             if (shuffle.random() < coinChance) {
-                const coin = this.createEntity(lane - 1, 0, 0, section.objects);
+                const coin = this.createEntity(lane - 1, 0.2, section.positionZ);
                 this.world.entities.push(coin);
                 section.entities.push(coin)
             }
         }
     }
-    createEntity(x, y, z, parentGroup) {
+    createEntity(x, y, z) {
         const mesh = new Mesh(this.geometry, this.material);
         mesh.rotation.x=1.5
         mesh.position.set(x, y, z);
-        parentGroup.add(mesh);
         const entity = new Entity("Coin");
         entity.add("Position", new Position(x, y, z));
         entity.add("Visual", new Visual(mesh));
-        entity.add("ParentGroup", parentGroup);
         entity.add("Collider", new Collider(...gameSetting.coin.size));
         return entity;
-
     }
 }

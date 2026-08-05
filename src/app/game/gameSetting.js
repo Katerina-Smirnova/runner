@@ -2,7 +2,7 @@ export const gameSetting = {
     camera: {
         fov:60,
         aspect: 2,
-        near: 0.1,
+        near: 0.01,
         far: 50,
         position: [0, 1, 7.5],
         lokAt:[0, 2, 0],
@@ -16,7 +16,7 @@ export const gameSetting = {
         position: [0,0.25,4.5],
         size: [0.3, 32, 16],
         color: 0x44aa88,
-        collider:[0.3,0.3,0.3]
+        collider:[0.15,0.15,0.15]
     },
     obstacle: {
         size: [0.4,0.4,0.4],
@@ -43,7 +43,7 @@ export const gameSetting = {
         color:'black',
     },
     safeWay:{
-        startZ:-10,
+        startZ:-5,
         distance:5,
     },
     coin:{

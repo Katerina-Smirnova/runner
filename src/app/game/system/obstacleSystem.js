@@ -26,8 +26,7 @@ export default class ObstacleSystem {
     subscribe() {
         for (const entity of this.world.entities) {
             const road = entity.get("Road");
-            const visual = entity.get("Visual");
-            if (!road || !visual) continue;
+            if (!road) continue;
             road.addObserver((event, section) => {
                 if (event === "addSafeWay") {
                     this.createObstacle(section)
@@ -39,8 +38,7 @@ export default class ObstacleSystem {
     create() {
         for (const entity of this.world.entities) {
             const road = entity.get("Road");
-            const visual = entity.get("Visual");
-            if (!road || !visual) continue;
+            if (!road) continue;
             for (const section of road.safeWay) {
                 this.createObstacle(section)
             }
@@ -52,22 +50,19 @@ export default class ObstacleSystem {
         for (let lane = 0; lane < section.path.length; lane++) {
             if (section.path[lane] === 1) continue;
             if (shuffle.random() < obstacleChance) {
-                const obstacle = this.createEntity(lane - 1, 0, 0, section.objects);
+                const obstacle = this.createEntity(lane - 1, 0.2, section.positionZ);
                 this.world.entities.push(obstacle);
                 section.entities.push(obstacle)
                 section.path[lane]  = 2;
             }
         }
     }
-    createEntity(x, y, z, parentGroup) {
-        const position= new Position(x, y, z)
+    createEntity(x, y, z) {
         const mesh = new Mesh(this.geometry, this.material);
         mesh.position.set(x, y, z);
-        parentGroup.add(mesh);
         const entity = new Entity("Obstacle");
-        entity.add("Position", position);
+        entity.add("Position", new Position(x, y, z));
         entity.add("Visual", new Visual(mesh));
-        entity.add("ParentGroup", parentGroup);
         entity.add("Collider", new Collider(...gameSetting.obstacle.collider));
         return entity;
 

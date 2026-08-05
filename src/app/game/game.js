@@ -23,6 +23,7 @@ import SafeWaySystem from "@/app/game/system/safeWaySystem";
 import CollisionSystem from "@/app/game/system/collisionsSystem";
 import CoinsSystem from "@/app/game/system/coinsSystem";
 import Collider from "@/app/game/components/сollider";
+import CameraSystem from "@/app/game/system/cameraSystem";
 
 
 export class Game {
@@ -44,10 +45,14 @@ export class Game {
         this.world = new World()
         this.renderer = new WebGLRenderer({antialias: true, canvas: canvas});
         this.scene = new Scene();
-        this.createCamera()
+
         this.createLight()
         this.createFog()
         this.createRoad()
+        this.createCamera()
+        // const controls = new OrbitControls(this.camera, canvas);
+        // controls.target.set(0, 2, 0);
+        // controls.update();
 
         this.labelRenderer = new CSS2DRenderer();
         this.labelRenderer.setSize( canvas.clientWidth, canvas.clientHeight);
@@ -66,25 +71,26 @@ export class Game {
         this.scene.add(label);
 
 
-        const controls = new OrbitControls(this.camera, canvas);
-        controls.target.set(0, 2, 0);
-        controls.update();
+
         const generator = new GenerateSection
 
         generator.nextSection()
         const ball= this.createBall()
         const position = new Position(...gameSetting.ball.position);
+        this.camera.lookAt(position);
 
         this.ballEntity.add('Visual', new Visual(ball));
         this.ballEntity.add('Position', position);
         this.ballEntity.add("Rotation", new Rotation());
         this.ballEntity.add("Collider", new Collider(...gameSetting.ball.collider));
+        this.ballEntity.add('EventInput', new EventInput())
+        this.ballEntity.add('Movement', new Movement())
 
         this.roadEntity.add('Visual',  new Visual(this.groupWorld))
         this.roadEntity.add('Position', new Position(...gameSetting.road.position))
         this.roadEntity.add("Road", new Road(this.roadSegments))
-        this.roadEntity.add('EventInput', new EventInput())
-        this.roadEntity.add('Movement', new Movement())
+        // this.roadEntity.add('EventInput', new EventInput())
+        // this.roadEntity.add('Movement', new Movement())
 
         this.world.addEntity(this.ballEntity);
         this.world.addEntity(this.roadEntity);
@@ -98,6 +104,9 @@ export class Game {
         this.world.addSystem(new ObstacleSystem(this.world))
         this.world.addSystem(new CollisionSystem(this.world))
         this.world.addSystem(new CoinsSystem(this.world))
+        this.world.addSystem(new CameraSystem(this.camera))
+
+
         requestAnimationFrame(this.render);
     }
 
@@ -134,8 +143,7 @@ export class Game {
             gameSetting.camera.aspect,
             gameSetting.camera.near,
             gameSetting.camera.far);
-        this.camera.position.set(...gameSetting.camera.position);
-        this.camera.lookAt(...gameSetting.camera.lokAt);
+        // this.camera.position.set(...gameSetting.camera.position);
     }
 
     createLight() {
