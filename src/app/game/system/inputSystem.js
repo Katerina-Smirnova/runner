@@ -22,6 +22,8 @@ export default class InputSystem {
                 input.direction = 'right'
             } else if (e.keyCode === 37 || e.keyCode === 65) {
                 input.direction = 'left'
+            }else if (e.keyCode === 38 || e.keyCode === 68) {
+                input.direction = 'up'
             }
         }
     }

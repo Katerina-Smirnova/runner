@@ -42,7 +42,7 @@ export default class CoinsSystem {
         for (let lane = 0; lane < section.path.length; lane++) {
             if (section.path[lane] === 2) continue;
             if (shuffle.random() < coinChance) {
-                const coin = this.createEntity(lane - 1, 0.2, section.positionZ);
+                const coin = this.createEntity(lane - 1, 0.25, section.positionZ);
                 this.world.entities.push(coin);
                 section.entities.push(coin)
             }

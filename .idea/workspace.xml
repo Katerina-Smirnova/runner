@@ -6,14 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="6d1bce30-2716-4079-8467-6920eb1b066b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/game/components/rode.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/components/rode.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/game/components/movement.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/components/movement.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/game/game.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/game.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/game/gameSetting.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/gameSetting.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/game/system/cameraSystem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/system/cameraSystem.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/game/system/coinsSystem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/system/coinsSystem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/game/system/collisionsSystem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/system/collisionsSystem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/game/system/inputSystem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/system/inputSystem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/game/system/movementSystem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/system/movementSystem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/game/system/obstacleSystem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/system/obstacleSystem.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/game/system/positionSystem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/system/positionSystem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/game/system/safeWaySystem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/system/safeWaySystem.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -163,7 +162,7 @@
       <workItem from="1785913292719" duration="7343000" />
       <workItem from="1785920805074" duration="2241000" />
       <workItem from="1785923090749" duration="3391000" />
-      <workItem from="1785926615683" duration="6203000" />
+      <workItem from="1785926615683" duration="12646000" />
     </task>
     <servers />
   </component>

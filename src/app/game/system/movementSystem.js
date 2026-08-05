@@ -13,6 +13,14 @@ export default class MovementSystem {
             } else if (input.direction === 'left' && position.x >= gameSetting.line.center) {
                 movement.dx = -1;
                 input.direction = null;
+            }else if (input.direction === 'up') {
+                movement.dy = 0.08;
+                // movement.jumpHeight+=1
+                input.direction = null;
+            }
+            else if (input.direction === 'down') {
+                movement.dy = -1;
+                input.direction = null;
             }
         }
     }

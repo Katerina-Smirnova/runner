@@ -77,7 +77,7 @@ export class Game {
         this.ballEntity.add("Rotation", new Rotation());
         this.ballEntity.add("Collider", new Collider(...gameSetting.ball.collider));
         this.ballEntity.add('EventInput', new EventInput())
-        this.ballEntity.add('Movement', new Movement())
+        this.ballEntity.add('Movement', new Movement(position.y))
 
         this.roadEntity.add('Visual',  new Visual(this.groupWorld))
         this.roadEntity.add('Position', new Position(...gameSetting.road.position))
