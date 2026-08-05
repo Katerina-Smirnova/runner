@@ -4,8 +4,6 @@ export const gameSetting = {
         aspect: 2,
         near: 0.01,
         far: 50,
-        position: [0, 1, 7.5],
-        lokAt:[0, 2, 0],
     },
     light: {
         color: 0xFFFFFF,
@@ -16,7 +14,8 @@ export const gameSetting = {
         position: [0,0.25,4.5],
         size: [0.3, 32, 16],
         color: 0x44aa88,
-        collider:[0.15,0.15,0.15]
+        collider:[0.15,0.15,0.15],
+        rotation:1.5,
     },
     obstacle: {
         size: [0.4,0.4,0.4],
@@ -51,7 +50,6 @@ export const gameSetting = {
         color:'yellow',
     },
     label:{
-        position:[0, 5, 0],
         color:'white',
         size:'50px',
     }

@@ -37,7 +37,6 @@ export default class CoinsSystem {
             }
         }
     }
-
     createCoin(section) {
         const coinChance = 0.5;
         for (let lane = 0; lane < section.path.length; lane++) {
@@ -51,7 +50,7 @@ export default class CoinsSystem {
     }
     createEntity(x, y, z) {
         const mesh = new Mesh(this.geometry, this.material);
-        mesh.rotation.x=1.5
+        mesh.rotation.x=gameSetting.ball.rotation;
         mesh.position.set(x, y, z);
         const entity = new Entity("Coin");
         entity.add("Position", new Position(x, y, z));

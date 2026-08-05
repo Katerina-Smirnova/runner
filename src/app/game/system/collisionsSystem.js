@@ -6,7 +6,6 @@ export default class CollisionSystem {
     constructor(world) {
         this.world = world;
     }
-
     update(entities) {
         const ball = entities.find(e => e.getName() === "ball");
         if (!ball)
@@ -16,17 +15,14 @@ export default class CollisionSystem {
             entity.get("Collider") &&
             entity.get("Position")
         );
-
         for (const entity of objects) {
             if (!this.checkCollision(ball, entity))
                 continue;
             this.onCollision(entity);
         }
-
     }
 
     checkCollision(firstEntity, secondEntity) {
-
         const secondPos = secondEntity.get("Position");
         const visual = firstEntity.get("Visual")
         const firstPos = new Vector3();
@@ -52,10 +48,13 @@ export default class CollisionSystem {
             case "Coin":
                 this.world.countCoins++;
                 gsap.to(mesh.position, {
-                    y: mesh.position.y + 2,
-                    z: mesh.position.z - 1,
+                    y: mesh.position.y + 4,
+                    z: mesh.position.z - 2,
                     duration: 0.5,
                     ease: "power2.out",
+                    onComplete: () => {
+                        this.world.removeEntities(object)
+                    }
                 });
                 break;
         }

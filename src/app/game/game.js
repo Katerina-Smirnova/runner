@@ -1,6 +1,6 @@
 import {
     PerspectiveCamera, Scene, WebGLRenderer, Mesh, MeshPhongMaterial, DirectionalLight, TextureLoader,
-    RepeatWrapping, PlaneGeometry, DoubleSide, SphereGeometry, Group, Fog, Color, Vector3,
+    RepeatWrapping, PlaneGeometry, DoubleSide, SphereGeometry, Group, Fog, Color,
 } from "three";
 import {gameSetting} from "@/app/game/gameSetting";
 import Entity from "@/app/game/entity/entity";
@@ -17,7 +17,7 @@ import Rotation from "@/app/game/components/rotation";
 import Road from "@/app/game/components/rode";
 import RoadSystem from "@/app/game/system/roadSystem";
 import ObstacleSystem from "@/app/game/system/obstacleSystem";
-import {CSS2DObject, CSS2DRenderer, OrbitControls} from "three/addons";
+import {CSS2DRenderer, } from "three/addons";
 import GenerateSection from "@/app/game/generateSection";
 import SafeWaySystem from "@/app/game/system/safeWaySystem";
 import CollisionSystem from "@/app/game/system/collisionsSystem";
@@ -50,9 +50,6 @@ export class Game {
         this.createFog()
         this.createRoad()
         this.createCamera()
-        // const controls = new OrbitControls(this.camera, canvas);
-        // controls.target.set(0, 2, 0);
-        // controls.update();
 
         this.labelRenderer = new CSS2DRenderer();
         this.labelRenderer.setSize( canvas.clientWidth, canvas.clientHeight);
@@ -65,12 +62,8 @@ export class Game {
         this.scoreLabel.style.color = gameSetting.label.color;
         this.scoreLabel.style.fontSize = gameSetting.label.size;
         this.scoreLabel.textContent = `Счет: ${this.world.countCoins}`;
-
-        const label = new CSS2DObject(this.scoreLabel);
-        label.position.set(...gameSetting.label.position);
-        this.scene.add(label);
-
-
+        this.scoreLabel.style.textAlign = 'center';
+        this.labelRenderer.domElement.appendChild( this.scoreLabel );
 
         const generator = new GenerateSection
 
@@ -89,8 +82,6 @@ export class Game {
         this.roadEntity.add('Visual',  new Visual(this.groupWorld))
         this.roadEntity.add('Position', new Position(...gameSetting.road.position))
         this.roadEntity.add("Road", new Road(this.roadSegments))
-        // this.roadEntity.add('EventInput', new EventInput())
-        // this.roadEntity.add('Movement', new Movement())
 
         this.world.addEntity(this.ballEntity);
         this.world.addEntity(this.roadEntity);
@@ -105,7 +96,6 @@ export class Game {
         this.world.addSystem(new CollisionSystem(this.world))
         this.world.addSystem(new CoinsSystem(this.world))
         this.world.addSystem(new CameraSystem(this.camera))
-
 
         requestAnimationFrame(this.render);
     }
@@ -143,7 +133,6 @@ export class Game {
             gameSetting.camera.aspect,
             gameSetting.camera.near,
             gameSetting.camera.far);
-        // this.camera.position.set(...gameSetting.camera.position);
     }
 
     createLight() {
