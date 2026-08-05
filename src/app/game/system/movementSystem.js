@@ -14,8 +14,7 @@ export default class MovementSystem {
                 movement.dx = -1;
                 input.direction = null;
             }else if (input.direction === 'up') {
-                movement.dy = 0.08;
-                // movement.jumpHeight+=1
+                movement.jumpRequested=true;
                 input.direction = null;
             }
             else if (input.direction === 'down') {
