@@ -14,7 +14,6 @@ export default class RenderSystem {
                 this.isInitialized = true;
                 return;
             }
-
             visual.mesh.position.x +=
                 (position.x - visual.mesh.position.x) * 0.1;
 
@@ -24,7 +23,7 @@ export default class RenderSystem {
             visual.mesh.position.z +=
                 (position.z - visual.mesh.position.z) * 0.1;
 
-            visual.mesh.rotation.x += rotation?.x ?? 0
+            visual.mesh.rotation.x += rotation?.rotation ?? 0
 
             if (visual.mesh.parent === null) {
                 this.scene.add(visual.mesh);

@@ -6,9 +6,9 @@ export default class PositionSystem {
         for (const entity of entities) {
             const movement = entity.get("Movement");
             const position = entity.get("Position");
-            const rotation = entity.get("Rotation");
+            const player = entity.get("Player");
             const visual = entity.get("Visual");
-            position.z += rotation?.speed ?? 0;
+            position.z += player?.speed ?? 0;
             // position.x += movement?.dx ?? 0;
             if (movement) {
                 position.x += movement.dx;

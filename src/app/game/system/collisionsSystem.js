@@ -41,7 +41,7 @@ export default class CollisionSystem {
             (firstCol.height + secondCol.height) / 2 &&
             Math.abs(firstPos.z - secondPos.z) <
             (firstCol.depth + secondCol.depth) / 2)
-        if (!res && secondEntity.name==='Coin') {
+        if (!res && secondEntity.name === 'Coin') {
             // console.log(firstPos, secondPos, Math.abs(firstPos.x - secondPos.x),
             //     Math.abs(firstPos.z - secondPos.z),
             //     (firstCol.width + secondCol.width) / 2,
@@ -70,6 +70,12 @@ export default class CollisionSystem {
                         this.world.removeEntities(object)
                     }
                 });
+                break;
+            case"Jetpack":
+                console.log()
+                const system = this.world.systems.forEach(e => console.log(e === "JetpackFlightSystem" ));
+                system.isJetpack = true;
+                system.start()
                 break;
         }
     }

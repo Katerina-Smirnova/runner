@@ -10,6 +10,7 @@ export default class World {
 
     addSystem(system) {
         this.systems.push(system);
+        // console.log(this.systems)
     }
 
     removeEntities(entity) {

@@ -59,5 +59,9 @@ export const gameSetting = {
         squashX: 0.15,
         squashY: 0.08,
         squashZ: 0.15,
+    },
+    jetpack:{
+        color:"green",
+        size:[0.2, 0.2, 0.1],
     }
 }

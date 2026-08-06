@@ -5,8 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6d1bce30-2716-4079-8467-6920eb1b066b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/app/game/system/jetpackFlightSystem.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/game/system/jetpackSystem.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/game/system/inputSystem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/system/inputSystem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/game/components/rotation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/components/player.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/game/game.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/game.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/game/gameSetting.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/gameSetting.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/game/system/coinsSystem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/system/coinsSystem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/game/system/collisionsSystem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/system/collisionsSystem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/game/system/movementSystem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/system/movementSystem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/game/system/positionSystem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/system/positionSystem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/game/system/renderSystem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/system/renderSystem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/game/world.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/world.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -159,7 +169,7 @@
       <workItem from="1785926615683" duration="12646000" />
       <workItem from="1785952938804" duration="5263000" />
       <workItem from="1785999897446" duration="12576000" />
-      <workItem from="1786012995843" duration="9616000" />
+      <workItem from="1786012995843" duration="15178000" />
     </task>
     <servers />
   </component>

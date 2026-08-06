@@ -13,7 +13,7 @@ import InputSystem from "@/app/game/system/inputSystem";
 import MovementSystem from "@/app/game/system/movementSystem";
 import PositionSystem from "@/app/game/system/positionSystem";
 import World from "@/app/game/world";
-import Rotation from "@/app/game/components/rotation";
+import Player from "@/app/game/components/player";
 import Road from "@/app/game/components/rode";
 import RoadSystem from "@/app/game/system/roadSystem";
 import ObstacleSystem from "@/app/game/system/obstacleSystem";
@@ -24,6 +24,8 @@ import CollisionSystem from "@/app/game/system/collisionsSystem";
 import CoinsSystem from "@/app/game/system/coinsSystem";
 import Collider from "@/app/game/components/сollider";
 import CameraSystem from "@/app/game/system/cameraSystem";
+import JetpackSystem from "@/app/game/system/jetpackSystem";
+import JetpackFlightSystem from "@/app/game/system/jetpackFlightSystem";
 
 
 export class Game {
@@ -73,7 +75,7 @@ export class Game {
         // this.camera.lookAt(position);
         this.ballEntity.add('Position', position);
         this.ballEntity.add('Visual', new Visual(ball));
-        this.ballEntity.add("Rotation", new Rotation());
+        this.ballEntity.add("Player", new Player());
         this.ballEntity.add("Collider", new Collider(...gameSetting.ball.collider));
         this.ballEntity.add('EventInput', new EventInput())
         this.ballEntity.add('Movement', new Movement(position.y, ball.scale))
@@ -93,9 +95,11 @@ export class Game {
         this.world.addSystem(new SafeWaySystem(this.world))
         this.world.addSystem(new ObstacleSystem(this.world))
         this.world.addSystem(new CoinsSystem(this.world))
+        this.world.addSystem(new JetpackSystem(this.world))
         this.world.addSystem(new CollisionSystem(this.world))
         this.world.addSystem(new RenderSystem(this.scene))
         this.world.addSystem(new CameraSystem(this.camera))
+        this.world.addSystem(new JetpackFlightSystem(this.world))
 
         requestAnimationFrame(this.render);
     }

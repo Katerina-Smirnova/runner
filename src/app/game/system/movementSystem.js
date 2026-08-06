@@ -15,8 +15,6 @@ export default class MovementSystem {
                 input.direction = null;
             }else if (input.direction === 'up') {
                 movement.jumpRequested=true;
-                // movement.countJumps+=1;
-                // console.log(movement.countJumps)
                 input.direction = null;
             }
         }
