@@ -4,7 +4,8 @@ export default class InputSystem {
         this.handleKeyDown = this.handleKeyDown.bind(this);
         this.handleMouseDown = this.handleMouseDown.bind(this);
         this.handleMouseUp = this.handleMouseUp.bind(this);
-        this.startX = 0
+        this.startX = 0;
+        this.startY = 0;
         window.addEventListener('keydown', this.handleKeyDown)
         window.addEventListener('mousedown', this.handleMouseDown)
         window.addEventListener('mouseup', this.handleMouseUp)
@@ -30,6 +31,7 @@ export default class InputSystem {
 
     handleMouseDown(e) {
         this.startX = e.clientX;
+        this.startY = e.clientY;
     }
 
     handleMouseUp(e) {
@@ -39,6 +41,9 @@ export default class InputSystem {
                 input.direction = 'right'
             } else if (e.clientX < this.startX) {
                 input.direction = 'left'
+            }
+            if (e.clientY < this.startY) {
+                input.direction = 'up'
             }
         }
     }
