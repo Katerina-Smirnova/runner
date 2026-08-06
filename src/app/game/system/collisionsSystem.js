@@ -1,5 +1,6 @@
 import {Vector3} from "three";
 import gsap from "gsap";
+import Jetpack from "@/app/game/components/jetpack";
 
 
 export default class CollisionSystem {
@@ -72,10 +73,12 @@ export default class CollisionSystem {
                 });
                 break;
             case"Jetpack":
-                console.log()
-                const system = this.world.systems.forEach(e => console.log(e === "JetpackFlightSystem" ));
-                system.isJetpack = true;
-                system.start()
+                const ball = this.world.entities.find(e => e.getName() === "ball");
+                ball.add("Jetpack", new Jetpack(true, 5, 30));
+                ball.get("Jetpack").startZ = ball.get("Position").z;
+                ball.get("Jetpack").endZ = ball.get("Position").z - 30;
+                ball.get("Jetpack").startY = ball.get("Position").y;
+                this.world.removeEntities(object);
                 break;
         }
     }

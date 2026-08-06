@@ -37,7 +37,7 @@ export default class JetpackSystem{
         }
     }
     createCoin(section) {
-        const coinChance = 1;
+        const coinChance = 0.2;
         for (let lane = 0; lane < section.path.length; lane++) {
             if (section.path[lane] === 2) continue;
             if (shuffle.random() < coinChance) {

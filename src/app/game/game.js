@@ -93,8 +93,8 @@ export class Game {
 
         this.world.addSystem(new RoadSystem())
         this.world.addSystem(new SafeWaySystem(this.world))
-        this.world.addSystem(new ObstacleSystem(this.world))
-        this.world.addSystem(new CoinsSystem(this.world))
+        // this.world.addSystem(new ObstacleSystem(this.world))
+        // this.world.addSystem(new CoinsSystem(this.world))
         this.world.addSystem(new JetpackSystem(this.world))
         this.world.addSystem(new CollisionSystem(this.world))
         this.world.addSystem(new RenderSystem(this.scene))
