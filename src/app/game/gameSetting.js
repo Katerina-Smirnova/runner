@@ -42,7 +42,7 @@ export const gameSetting = {
         color: 'black',
     },
     safeWay: {
-        startZ: -5,
+        startZ: -10,
         distance: 2,
     },
     coin: {

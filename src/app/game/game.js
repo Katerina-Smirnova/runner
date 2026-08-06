@@ -17,7 +17,7 @@ import Rotation from "@/app/game/components/rotation";
 import Road from "@/app/game/components/rode";
 import RoadSystem from "@/app/game/system/roadSystem";
 import ObstacleSystem from "@/app/game/system/obstacleSystem";
-import {CSS2DRenderer, } from "three/addons";
+import {CSS2DRenderer,} from "three/addons";
 import GenerateSection from "@/app/game/generateSection";
 import SafeWaySystem from "@/app/game/system/safeWaySystem";
 import CollisionSystem from "@/app/game/system/collisionsSystem";
@@ -35,8 +35,8 @@ export class Game {
         this.world = null;
         this.groupWorld = new Group()
         this.roadEntity = new Entity('road');
-        this.roadSegments=[];
-        this. ballEntity = new Entity('ball');
+        this.roadSegments = [];
+        this.ballEntity = new Entity('ball');
         this.labelRenderer = null
         this.scoreLabel = null
     }
@@ -52,33 +52,33 @@ export class Game {
         this.createCamera()
 
         this.labelRenderer = new CSS2DRenderer();
-        this.labelRenderer.setSize( canvas.clientWidth, canvas.clientHeight);
+        this.labelRenderer.setSize(canvas.clientWidth, canvas.clientHeight);
         this.labelRenderer.domElement.style.position = 'absolute';
         this.labelRenderer.domElement.style.top = '0';
         this.labelRenderer.domElement.style.pointerEvents = 'none';
-        canvas.parentElement.appendChild( this.labelRenderer.domElement );
+        canvas.parentElement.appendChild(this.labelRenderer.domElement);
         this.scoreLabel = document.createElement('div');
         this.scoreLabel.className = 'label';
         this.scoreLabel.style.color = gameSetting.label.color;
         this.scoreLabel.style.fontSize = gameSetting.label.size;
         this.scoreLabel.textContent = `Счет: ${this.world.countCoins}`;
         this.scoreLabel.style.textAlign = 'center';
-        this.labelRenderer.domElement.appendChild( this.scoreLabel );
+        this.labelRenderer.domElement.appendChild(this.scoreLabel);
 
         const generator = new GenerateSection
 
         generator.nextSection()
-        const ball= this.createBall()
+        const ball = this.createBall()
         const position = new Position(...gameSetting.ball.position);
         // this.camera.lookAt(position);
-        this.ballEntity.add('Visual', new Visual(ball));
         this.ballEntity.add('Position', position);
+        this.ballEntity.add('Visual', new Visual(ball));
         this.ballEntity.add("Rotation", new Rotation());
         this.ballEntity.add("Collider", new Collider(...gameSetting.ball.collider));
         this.ballEntity.add('EventInput', new EventInput())
-        this.ballEntity.add('Movement', new Movement(position.y,ball.scale))
+        this.ballEntity.add('Movement', new Movement(position.y, ball.scale))
 
-        this.roadEntity.add('Visual',  new Visual(this.groupWorld))
+        this.roadEntity.add('Visual', new Visual(this.groupWorld))
         this.roadEntity.add('Position', new Position(...gameSetting.road.position))
         this.roadEntity.add("Road", new Road(this.roadSegments))
 
@@ -112,10 +112,10 @@ export class Game {
             map: texture,
             side: DoubleSide,
         });
-        for(let i = 0; i < 3; i++) {
-            const geometry = new PlaneGeometry(gameSetting.road.size.width,gameSetting.road.size.height);
-            const road =  new Mesh(geometry, material);
-            road.position.set(0,0,-i*gameSetting.road.size.height);
+        for (let i = 0; i < 3; i++) {
+            const geometry = new PlaneGeometry(gameSetting.road.size.width, gameSetting.road.size.height);
+            const road = new Mesh(geometry, material);
+            road.position.set(0, 0, -i * gameSetting.road.size.height);
             road.rotation.x = -Math.PI / 2;
             this.roadSegments.push(road);
             this.groupWorld.add(road);
@@ -146,6 +146,7 @@ export class Game {
         const material = new MeshPhongMaterial({color: gameSetting.ball.color});
         return new Mesh(geometry, material);
     }
+
     destroy() {
         this.scene.remove.apply(this.scene, this.scene.children);
     }
