@@ -14,7 +14,7 @@ export default class PositionSystem {
                 position.x += movement.dx;
                 if (movement.jumpRequested && !movement.isJumping) {
                     movement.countJumps -= 1
-                    this.startJump(position, movement, visual, rotation);
+                    this.startJump(position, movement, visual);
                     movement.jumpRequested = false;
                 }
                 movement.dx = 0;
@@ -22,7 +22,7 @@ export default class PositionSystem {
         }
     }
 
-    startJump(position, movement, visual,rotation) {
+    startJump(position, movement, visual) {
         if (movement.countJumps === 0) {
             movement.isJumping = true;
         }
@@ -77,6 +77,7 @@ export default class PositionSystem {
             .to(position, {
                 duration: time / 2,
                 y: movement.startY,
+                // z: position.z - 5,
                 ease: "power1.in",
             })
             // растягиваем
@@ -96,7 +97,7 @@ export default class PositionSystem {
                 ease: "power2.out"
             })
             .to(visual.mesh.scale, {
-                duration: 0.05,
+                duration: 0.08,
                 x: baseSize.x,
                 y: baseSize.y,
                 z: baseSize.z,

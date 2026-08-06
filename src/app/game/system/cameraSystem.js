@@ -5,10 +5,10 @@ export default class CameraSystem {
         this.camera = camera;
         this.currentPosition = new Vector3();
         this.height = 1.2;
-        this.width = 2.5;
+        this.width = 1.5;
         this.lookTarget = new Vector3();
         this.isInitialized = false;
-        this.alpha = 0.05
+        this.alpha = 0.03
     }
 
     update(entities) {

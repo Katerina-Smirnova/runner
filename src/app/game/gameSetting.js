@@ -14,8 +14,8 @@ export const gameSetting = {
         position: [0, 0.25, 4.5],
         size: [0.3,32, 16],
         color: 0x44aa88,
-        collider: [0.15, 0.15, 0.15],
-        rotation: 1.5,
+        collider: [0.6, 0.6, 0.6]
+
     },
     obstacle: {
         size: [0.4, 0.4, 0.4],
@@ -43,11 +43,13 @@ export const gameSetting = {
     },
     safeWay: {
         startZ: -5,
-        distance: 5,
+        distance: 2.5,
     },
     coin: {
         size: [0.15, 0.15, 0.05],
         color: 'yellow',
+        collider: [0.3,0.05, 0.3],
+        rotation: 1.5,
     },
     label: {
         color: 'white',

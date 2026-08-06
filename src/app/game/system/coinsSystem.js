@@ -1,4 +1,4 @@
-import { CylinderGeometry, Mesh, MeshPhongMaterial} from "three";
+import {BoxGeometry, CylinderGeometry, Mesh, MeshBasicMaterial, MeshPhongMaterial} from "three";
 import {gameSetting} from "@/app/game/gameSetting";
 import {shuffle} from "@/app/game/shuffle";
 import Entity from "@/app/game/entity/entity";
@@ -50,12 +50,13 @@ export default class CoinsSystem {
     }
     createEntity(x, y, z) {
         const mesh = new Mesh(this.geometry, this.material);
-        mesh.rotation.x=gameSetting.ball.rotation;
+        mesh.rotation.x=gameSetting.coin.rotation;
         mesh.position.set(x, y, z);
+
         const entity = new Entity("Coin");
         entity.add("Position", new Position(x, y, z));
         entity.add("Visual", new Visual(mesh));
-        entity.add("Collider", new Collider(...gameSetting.coin.size));
+        entity.add("Collider", new Collider(...gameSetting.coin.collider));
         return entity;
     }
 }

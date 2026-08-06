@@ -1,7 +1,7 @@
 import {
     BoxGeometry,
     Group,
-    Mesh,
+    Mesh, MeshBasicMaterial,
     MeshPhongMaterial, Vector3,
 } from "three";
 import Position from "@/app/game/components/position";

@@ -1,6 +1,6 @@
 import {
     PerspectiveCamera, Scene, WebGLRenderer, Mesh, MeshPhongMaterial, DirectionalLight, TextureLoader,
-    RepeatWrapping, PlaneGeometry, DoubleSide, SphereGeometry, Group, Fog, Color,
+    RepeatWrapping, PlaneGeometry, DoubleSide, SphereGeometry, Group, Fog, Color, BoxGeometry, MeshBasicMaterial,
 } from "three";
 import {gameSetting} from "@/app/game/gameSetting";
 import Entity from "@/app/game/entity/entity";
@@ -70,9 +70,7 @@ export class Game {
         generator.nextSection()
         const ball= this.createBall()
         const position = new Position(...gameSetting.ball.position);
-        this.camera.lookAt(position);
-        console.log(ball.scale)
-
+        // this.camera.lookAt(position);
         this.ballEntity.add('Visual', new Visual(ball));
         this.ballEntity.add('Position', position);
         this.ballEntity.add("Rotation", new Rotation());
@@ -90,12 +88,13 @@ export class Game {
         this.world.addSystem(new InputSystem(this.world))
         this.world.addSystem(new MovementSystem())
         this.world.addSystem(new PositionSystem())
-        this.world.addSystem(new RenderSystem(this.scene))
+
         this.world.addSystem(new RoadSystem())
         this.world.addSystem(new SafeWaySystem(this.world))
         this.world.addSystem(new ObstacleSystem(this.world))
-        this.world.addSystem(new CollisionSystem(this.world))
         this.world.addSystem(new CoinsSystem(this.world))
+        this.world.addSystem(new CollisionSystem(this.world))
+        this.world.addSystem(new RenderSystem(this.scene))
         this.world.addSystem(new CameraSystem(this.camera))
 
         requestAnimationFrame(this.render);
