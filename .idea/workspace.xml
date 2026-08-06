@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6d1bce30-2716-4079-8467-6920eb1b066b" name="Changes" comment="" />
+    <list default="true" id="6d1bce30-2716-4079-8467-6920eb1b066b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/src/app/game/system/safeWaySystem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/system/safeWaySystem.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -156,7 +158,7 @@
       <workItem from="1785926615683" duration="12646000" />
       <workItem from="1785952938804" duration="5263000" />
       <workItem from="1785999897446" duration="12576000" />
-      <workItem from="1786012995843" duration="4659000" />
+      <workItem from="1786012995843" duration="5336000" />
     </task>
     <servers />
   </component>
