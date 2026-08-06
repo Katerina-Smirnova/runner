@@ -14,7 +14,7 @@ export default class SafeWaySystem {
         for (const entity of this.world.entities) {
             const road = entity.get("Road");
             if (!road) continue;
-            for (let i = 0; i < 10; i++) {
+            for (let i = 0; i < 15; i++) {
                 const newSection = {path: this.generate.nextSection(), positionZ: this.z, entities: []}
                 road.addSafeWay(newSection);
                 this.z -= this.distance;
