@@ -71,13 +71,14 @@ export class Game {
         const ball= this.createBall()
         const position = new Position(...gameSetting.ball.position);
         this.camera.lookAt(position);
+        console.log(ball.scale)
 
         this.ballEntity.add('Visual', new Visual(ball));
         this.ballEntity.add('Position', position);
         this.ballEntity.add("Rotation", new Rotation());
         this.ballEntity.add("Collider", new Collider(...gameSetting.ball.collider));
         this.ballEntity.add('EventInput', new EventInput())
-        this.ballEntity.add('Movement', new Movement(position.y))
+        this.ballEntity.add('Movement', new Movement(position.y,ball.scale))
 
         this.roadEntity.add('Visual',  new Visual(this.groupWorld))
         this.roadEntity.add('Position', new Position(...gameSetting.road.position))

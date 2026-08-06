@@ -9,7 +9,7 @@
       <change beforePath="$PROJECT_DIR$/src/app/game/components/movement.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/components/movement.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/game/components/rotation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/components/rotation.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/game/game.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/game.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/game/system/inputSystem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/system/inputSystem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/game/gameSetting.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/gameSetting.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/game/system/movementSystem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/system/movementSystem.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/game/system/positionSystem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/system/positionSystem.js" afterDir="false" />
     </list>
@@ -141,7 +141,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-4abd2a77f808-JavaScript-WS-262.8665.259" />
+        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-WS-253.29346.242" />
       </set>
     </attachedChunks>
   </component>
@@ -163,6 +163,7 @@
       <workItem from="1785923090749" duration="3391000" />
       <workItem from="1785926615683" duration="12646000" />
       <workItem from="1785952938804" duration="5263000" />
+      <workItem from="1785999897446" duration="8700000" />
     </task>
     <servers />
   </component>

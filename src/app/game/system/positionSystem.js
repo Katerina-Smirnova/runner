@@ -9,108 +9,99 @@ export default class PositionSystem {
             const rotation = entity.get("Rotation");
             const visual = entity.get("Visual");
             position.z += rotation?.speed ?? 0;
-            position.x += movement?.dx ?? 0;
+            // position.x += movement?.dx ?? 0;
             if (movement) {
+                position.x += movement.dx;
                 if (movement.jumpRequested && !movement.isJumping) {
-                    this.startJump(entity, position, movement,visual);
+                    movement.countJumps -= 1
+                    this.startJump(position, movement, visual, rotation);
                     movement.jumpRequested = false;
                 }
-
                 movement.dx = 0;
             }
         }
     }
 
-    startJump(entity, position, movement,visual) {
-        movement.isJumping = true;
-        const jumpHeight = movement.jumpHeight;
-        const jumpDuration = movement.jumpDuration;
-        const startY = position.y;
+    startJump(position, movement, visual,rotation) {
+        if (movement.countJumps === 0) {
+            movement.isJumping = true;
+        }
+        if (movement.jumpTween) {
+            movement.jumpTween.kill()
+            visual.mesh.scale.set(
+                movement.scale.x,
+                movement.scale.y,
+                movement.scale.z
+            );
+        }
         const time = movement.time;
-        const squashX = 0.2
-        const squashY = 0.1
-        const baseSize = gameSetting.ball.collider
-        const scale = visual.mesh.scale
-        visual.mesh.rotation.z += 0;
-
-        const tween = gsap.timeline({
+        const squashX = gameSetting.jump.squashX
+        const squashY = gameSetting.jump.squashY
+        const squashZ = gameSetting.jump.squashZ
+        const baseSize = movement.scale
+        movement.jumpTween = gsap.timeline({
             onComplete: () => {
                 movement.isJumping = false;
-                scale.set(1, 1, 1);
-                position.y=startY
+                movement.countJumps = 2;
             }
         })
-            .to(scale, {
+            .to(visual.mesh.scale, {
                 duration: 0.08,
-                x: 1.1,
-                y: 0.8,
-                z: 1.1,
+                x: baseSize.x * (1 + squashX),
+                y: baseSize.y * (1 - squashY),
+                z: baseSize.z * (1 + squashZ),
                 ease: "power2.out"
             })
             .to(position, {
                 duration: time / 2,
-                y: startY + jumpHeight,
+                y: position.y + movement.jumpHeight,
                 ease: "power1.out",
-            },"<")
+            }, "<")
             // растягиваем
-            .to(scale, {
+            .to(visual.mesh.scale, {
                 duration: time / 4,
-                x: 0.8,
-                y: 1.1,
-                z: 0.8,
+                x: baseSize.x * (1 - squashX),
+                y: baseSize.y * (1 + squashY),
+                z: baseSize.z * (1 - squashZ),
                 ease: "sine.inOut"
             }, "<")
             // начальное
-            .to(scale, {
+            .to(visual.mesh.scale, {
                 duration: time / 4,
-                x: 1,
-                y: 1,
-                z: 1,
+                x: baseSize.x,
+                y: baseSize.y,
+                z: baseSize.z,
                 ease: "none",
             }, ">")
 
             .to(position, {
                 duration: time / 2,
-                y: startY,
+                y: movement.startY,
                 ease: "power1.in",
             })
             // растягиваем
-            .to(scale, {
+            .to(visual.mesh.scale, {
                 duration: time / 4,
-                x: 0.8,
-                y: 1.1,
-                z: 0.8,
+                x: baseSize.x * (1 - squashX),
+                y: baseSize.y * (1 + squashY),
+                z: baseSize.z * (1 - squashZ),
                 ease: 'power1.inOut',
             }, `<+=${time / 6}`)
             //сжимаем
-            .to(scale, {
+            .to(visual.mesh.scale, {
                 duration: time / 4,
-                x: 1.1,
-                y: 0.8,
-                z: 1.1,
+                x: baseSize.x * (1 + squashX),
+                y: baseSize.y * (1 - squashY),
+                z: baseSize.z * (1 + squashZ),
                 ease: "power2.out"
             })
-            .to(scale, {
+            .to(visual.mesh.scale, {
                 duration: 0.05,
-                x: 1,
-                y: 1,
-                z: 1,
+                x: baseSize.x,
+                y: baseSize.y,
+                z: baseSize.z,
                 ease: "power1.out"
             })
-
-        // gsap.to(position, {
-        // y: startY + jumpHeight,
-        // duration: jumpDuration,
-        // ease: "power2.inOut",
-        // yoyo: true,
-        // repeat: 1,
-        // onComplete: () => {
-        //     position.y = startY;
-        //     movement.isJumping = false;
-        //
-        // }
-        // });
-
     }
 
 }
