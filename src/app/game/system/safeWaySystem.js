@@ -15,7 +15,7 @@ export default class SafeWaySystem {
             const road = entity.get("Road");
             if (!road) continue;
             for (let i = 0; i < 20; i++) {
-                const newSection = {path: this.generate.nextSection(), positionZ: this.z, entities: []}
+                const newSection = {path: this.generate.nextSection(), positionZ: this.z, positionY: 0.25, entities: []}
                 road.addSafeWay(newSection);
                 this.z -= this.distance;
             }
@@ -36,7 +36,7 @@ export default class SafeWaySystem {
                 this.world.removeEntities(entity)
             })
             road.removeSafeWay(road.safeWay[0])
-            const newSection = {path: this.generate.nextSection(), positionZ: this.z, entities: []}
+            const newSection = {path: this.generate.nextSection(), positionZ: this.z, positionY: 0.25, entities: []}
             road.addSafeWay(newSection);
             this.z -= this.distance
         }

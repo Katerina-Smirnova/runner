@@ -1,18 +1,14 @@
 import {Vector3} from "three";
 import gsap from "gsap";
-import Jetpack from "@/app/game/components/jetpack";
-
 
 export default class CollisionSystem {
     constructor(world) {
         this.world = world;
     }
-
     update(entities) {
         const ball = entities.find(e => e.getName() === "ball");
         if (!ball)
             return;
-
         const objects = entities.filter(entity => entity !== ball &&
             entity.get("Collider") &&
             entity.get("Position")
@@ -25,7 +21,6 @@ export default class CollisionSystem {
     }
 
     checkCollision(firstEntity, secondEntity) {
-        // const secondPos = secondEntity.get("Position");
         const visual = firstEntity.get("Visual")
         const firstPos = new Vector3();
         visual.mesh.getWorldPosition(firstPos);
@@ -36,22 +31,12 @@ export default class CollisionSystem {
 
         const firstCol = firstEntity.get("Collider");
         const secondCol = secondEntity.get("Collider");
-        const res = (Math.abs(firstPos.x - secondPos.x) <
+        return (Math.abs(firstPos.x - secondPos.x) <
             (firstCol.width + secondCol.width) / 2 &&
             Math.abs(firstPos.y - secondPos.y) <
             (firstCol.height + secondCol.height) / 2 &&
             Math.abs(firstPos.z - secondPos.z) <
             (firstCol.depth + secondCol.depth) / 2)
-        if (!res && secondEntity.name === 'Coin') {
-            // console.log(firstPos, secondPos, Math.abs(firstPos.x - secondPos.x),
-            //     Math.abs(firstPos.z - secondPos.z),
-            //     (firstCol.width + secondCol.width) / 2,
-            //     (firstCol.depth + secondCol.depth) / 2);
-
-        }
-
-        return res
-
     }
 
     onCollision(object) {
@@ -74,10 +59,9 @@ export default class CollisionSystem {
                 break;
             case"Jetpack":
                 const ball = this.world.entities.find(e => e.getName() === "ball");
-                ball.add("Jetpack", new Jetpack(true, 5, 30));
+                ball.get("Jetpack").isActive = true;
                 ball.get("Jetpack").startZ = ball.get("Position").z;
                 ball.get("Jetpack").endZ = ball.get("Position").z - 30;
-                ball.get("Jetpack").startY = ball.get("Position").y;
                 this.world.removeEntities(object);
                 break;
         }

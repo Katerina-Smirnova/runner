@@ -1,37 +1,56 @@
+import GenerateSection from "@/app/game/generateSection";
+import {gameSetting} from "@/app/game/gameSetting";
+
 export default class JetpackFlightSystem {
     constructor(world) {
-        this.isDecline = false;
+        this.generate = new GenerateSection()
+        this.z = gameSetting.safeWay.startZ
+        this.distance = gameSetting.safeWay.distance
+        this.created = false
+        this.world = world;
     }
+
+    create(entity) {
+        this.z = entity.startZ - 8
+        const y = entity.startY + entity.height
+        for (let i = 0; i < 10; i++) {
+            const newSection = {path: this.generate.nextSection(), positionZ: this.z, positionY: y, entities: []}
+            entity.addWay(newSection);
+            this.z -= this.distance;
+        }
+    }
+
     update(entities) {
         for (const entity of entities) {
             const jetpack = entity.get("Jetpack");
             if (!jetpack || !jetpack.isActive) continue;
             const position = entity.get("Position");
             const player = entity.get("Player");
-
+            if (position.z === jetpack.startZ && !this.created) {
+                this.created = true;
+                this.create(jetpack)
+                return
+            }
             if (position.z <= jetpack.endZ) {
-                const targetY = jetpack.startY;
-                position.y += (targetY - position.y) * 0.06;
-                position.z -=0.5 * 0.08
-
-                if (Math.abs(position.y - targetY) < 0.01) {
-                    position.y = targetY;
+                position.y += (jetpack.startY - position.y) * 0.1;
+                position.z -= 0.1
+                player.speed = -0.05;
+                this.created = false
+                if (Math.abs(position.y - jetpack.startY) < 0.01) {
+                    position.y = jetpack.startY;
                     jetpack.isActive = false;
                     player.speed = -0.1;
-                    entity.remove("Jetpack");
                 }
+            } else {
+                position.y += (jetpack.startY + jetpack.height - position.y) * 0.1;
+                player.speed = -0.13;
             }
-            else {
-                const targetY = jetpack.startY + jetpack.height;
-                position.y += (targetY - position.y) * 0.1;
+            if (position.z < jetpack.way[0]?.positionZ - (this.distance * 2)) {
+                jetpack.way[0].entities.forEach(entity => {
+                    this.world.removeEntities(entity)
+                })
+                jetpack.removeWay(jetpack.way[0])
             }
-
-
-
-            if (player) player.speed = -0.15;
         }
-
     }
-
-
 }

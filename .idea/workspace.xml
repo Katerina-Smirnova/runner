@@ -5,14 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6d1bce30-2716-4079-8467-6920eb1b066b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/app/game/components/jetpack.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/game/entity/entity.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/entity/entity.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/game/components/jetpack.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/components/jetpack.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/game/game.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/game.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/game/system/cameraSystem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/system/cameraSystem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/game/system/coinsSystem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/system/coinsSystem.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/game/system/collisionsSystem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/system/collisionsSystem.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/game/system/jetpackFlightSystem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/system/jetpackFlightSystem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/game/system/jetpackSystem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/system/jetpackSystem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/game/system/obstacleSystem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/system/obstacleSystem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/game/system/positionSystem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/system/positionSystem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/game/system/safeWaySystem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/system/safeWaySystem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/game/world.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/game/world.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -142,7 +145,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-4abd2a77f808-JavaScript-WS-262.8665.259" />
+        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-WS-253.29346.242" />
       </set>
     </attachedChunks>
   </component>
@@ -167,6 +170,7 @@
       <workItem from="1785999897446" duration="12576000" />
       <workItem from="1786012995843" duration="15178000" />
       <workItem from="1786039318439" duration="3718000" />
+      <workItem from="1786085884291" duration="11256000" />
     </task>
     <servers />
   </component>

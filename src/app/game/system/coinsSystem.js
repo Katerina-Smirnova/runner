@@ -20,12 +20,21 @@ export default class CoinsSystem {
     subscribe() {
         for (const entity of this.world.entities) {
             const road = entity.get("Road");
-            if (!road) continue;
-            road.addObserver((event, section) => {
-                if (event === "addSafeWay") {
-                    this.createCoin(section);
-                }
-            });
+            const jetpack = entity.get("Jetpack");
+            if (road) {
+                road.addObserver((event, section) => {
+                    if (event === "addSafeWay") {
+                        this.createCoin(section, 0.5);
+                    }
+                });
+            }
+            if (jetpack) {
+                jetpack.addObserver((event, section) => {
+                    if (event === "addWay") {
+                        this.createCoin(section, 1);
+                    }
+                });
+            }
         }
     }
     create() {
@@ -33,16 +42,15 @@ export default class CoinsSystem {
             const road = entity.get("Road");
             if (!road) continue;
             for (const section of road.safeWay) {
-                this.createCoin(section);
+                this.createCoin(section,0.5);
             }
         }
     }
-    createCoin(section) {
-        const coinChance = 0.5;
+    createCoin(section, probability) {
         for (let lane = 0; lane < section.path.length; lane++) {
             if (section.path[lane] === 2) continue;
-            if (shuffle.random() < coinChance) {
-                const coin = this.createEntity(lane - 1, 0.25, section.positionZ);
+            if (shuffle.random() < probability) {
+                const coin = this.createEntity(lane - 1, section.positionY, section.positionZ);
                 this.world.entities.push(coin);
                 section.entities.push(coin);
                 section.path[lane]  = 2;

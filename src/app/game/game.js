@@ -26,6 +26,7 @@ import Collider from "@/app/game/components/сollider";
 import CameraSystem from "@/app/game/system/cameraSystem";
 import JetpackSystem from "@/app/game/system/jetpackSystem";
 import JetpackFlightSystem from "@/app/game/system/jetpackFlightSystem";
+import Jetpack from "@/app/game/components/jetpack";
 
 
 export class Game {
@@ -79,6 +80,7 @@ export class Game {
         this.ballEntity.add("Collider", new Collider(...gameSetting.ball.collider));
         this.ballEntity.add('EventInput', new EventInput())
         this.ballEntity.add('Movement', new Movement(position.y, ball.scale))
+        this.ballEntity.add("Jetpack",new Jetpack())
 
         this.roadEntity.add('Visual', new Visual(this.groupWorld))
         this.roadEntity.add('Position', new Position(...gameSetting.road.position))
@@ -93,8 +95,8 @@ export class Game {
 
         this.world.addSystem(new RoadSystem())
         this.world.addSystem(new SafeWaySystem(this.world))
-        // this.world.addSystem(new ObstacleSystem(this.world))
-        // this.world.addSystem(new CoinsSystem(this.world))
+        this.world.addSystem(new ObstacleSystem(this.world))
+        this.world.addSystem(new CoinsSystem(this.world))
         this.world.addSystem(new JetpackSystem(this.world))
         this.world.addSystem(new CollisionSystem(this.world))
         this.world.addSystem(new RenderSystem(this.scene))

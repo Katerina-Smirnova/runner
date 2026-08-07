@@ -10,9 +10,7 @@ export default class World {
 
     addSystem(system) {
         this.systems.push(system);
-        // console.log(this.systems)
     }
-
     removeEntities(entity) {
         this.entities = this.entities.filter(e => {
             if (e !== entity) {
@@ -59,6 +57,7 @@ export default class World {
                 system.update(this.entities);
             }
         }
+        this.processEvents()
         this.removeEntities();
     }
     stopPlay(){

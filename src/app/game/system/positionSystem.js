@@ -8,16 +8,17 @@ export default class PositionSystem {
             const position = entity.get("Position");
             const player = entity.get("Player");
             const visual = entity.get("Visual");
+            const jetpack = entity.get("Jetpack");
             position.z += player?.speed ?? 0;
-            // position.x += movement?.dx ?? 0;
             if (movement) {
                 position.x += movement.dx;
-                if (movement.jumpRequested && !movement.isJumping) {
+                if (movement.jumpRequested && !movement.isJumping && !jetpack.isActive) {
                     movement.countJumps -= 1
                     this.startJump(position, movement, visual);
                     movement.jumpRequested = false;
                 }
                 movement.dx = 0;
+                movement.jumpRequested = false;
             }
         }
     }

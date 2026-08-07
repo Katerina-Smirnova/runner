@@ -50,7 +50,7 @@ export default class ObstacleSystem {
         for (let lane = 0; lane < section.path.length; lane++) {
             if (section.path[lane] === 1) continue;
             if (shuffle.random() < obstacleChance) {
-                const obstacle = this.createEntity(lane - 1, 0.25, section.positionZ);
+                const obstacle = this.createEntity(lane - 1, section.positionY, section.positionZ);
                 this.world.entities.push(obstacle);
                 section.entities.push(obstacle)
                 section.path[lane]  = 2;
@@ -65,6 +65,5 @@ export default class ObstacleSystem {
         entity.add("Visual", new Visual(mesh));
         entity.add("Collider", new Collider(...gameSetting.obstacle.collider));
         return entity;
-
     }
 }
