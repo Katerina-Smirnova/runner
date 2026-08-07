@@ -9,9 +9,12 @@ export default class SafeWaySystem {
         this.distance = gameSetting.safeWay.distance
         this.create()
     }
+    getEntity(component) {
+        return this.world.query(component);
+    }
 
     create() {
-        for (const entity of this.world.entities) {
+        for (const entity of this.getEntity("Road")) {
             const road = entity.get("Road");
             if (!road) continue;
             for (let i = 0; i < 20; i++) {

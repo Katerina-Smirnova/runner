@@ -22,11 +22,13 @@ export default class ObstacleSystem {
         this.subscribe();
         this.create();
     }
+    getEntity(component) {
+        return this.world.query(component);
+    }
 
     subscribe() {
-        for (const entity of this.world.entities) {
+        for (const entity of this.getEntity("Road")) {
             const road = entity.get("Road");
-            if (!road) continue;
             road.addObserver((event, section) => {
                 if (event === "addSafeWay") {
                     this.createObstacle(section)
@@ -36,9 +38,8 @@ export default class ObstacleSystem {
     }
 
     create() {
-        for (const entity of this.world.entities) {
+        for (const entity of this.getEntity("Road")) {
             const road = entity.get("Road");
-            if (!road) continue;
             for (const section of road.safeWay) {
                 this.createObstacle(section)
             }

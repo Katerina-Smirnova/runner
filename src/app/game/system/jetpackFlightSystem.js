@@ -19,11 +19,14 @@ export default class JetpackFlightSystem {
             this.z -= this.distance;
         }
     }
+    getEntity(component) {
+        return this.world.query(component);
+    }
 
-    update(entities) {
-        for (const entity of entities) {
+    update() {
+        for (const entity of this.getEntity("Jetpack")) {
             const jetpack = entity.get("Jetpack");
-            if (!jetpack || !jetpack.isActive) continue;
+            if (!jetpack.isActive) continue;
             const position = entity.get("Position");
             const player = entity.get("Player");
             player.immunity = true

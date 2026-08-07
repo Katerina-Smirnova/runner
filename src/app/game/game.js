@@ -108,8 +108,8 @@ export class Game {
         this.world.addEntity(this.roadEntity);
 
         this.world.addSystem(new InputSystem(this.world))
-        this.world.addSystem(new MovementSystem())
-        this.world.addSystem(new PositionSystem())
+        this.world.addSystem(new MovementSystem(this.world))
+        this.world.addSystem(new PositionSystem(this.world))
 
         this.world.addSystem(new RoadSystem())
         this.world.addSystem(new SafeWaySystem(this.world))

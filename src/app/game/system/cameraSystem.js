@@ -37,5 +37,4 @@ export default class CameraSystem {
         );
         this.camera.lookAt(this.lookTarget);
     }
-
 }

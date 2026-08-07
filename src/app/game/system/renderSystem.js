@@ -3,7 +3,6 @@ export default class RenderSystem {
         this.scene = scene;
         this.isInitialized = false;
     }
-
     update(entities) {
         for (const entity of entities) {
             const visual = entity.get("Visual");

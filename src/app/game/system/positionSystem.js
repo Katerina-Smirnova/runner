@@ -2,8 +2,11 @@ import gsap from "gsap";
 import {gameSetting} from "@/app/game/gameSetting";
 
 export default class PositionSystem {
-    update(entities) {
-        for (const entity of entities) {
+    constructor(world) {
+        this.world = world;
+    }
+    update() {
+        for (const entity of this.getEntity("Position")) {
             const movement = entity.get("Movement");
             const position = entity.get("Position");
             const player = entity.get("Player");
@@ -21,6 +24,9 @@ export default class PositionSystem {
                 movement.jumpRequested = false;
             }
         }
+    }
+    getEntity(component) {
+        return this.world.query(component);
     }
 
     startJump(position, movement, visual) {
