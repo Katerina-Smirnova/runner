@@ -64,6 +64,7 @@ export class Game {
         ui.style.alignItems = 'center';
         ui.style.padding = '10px';
         ui.style.gap = '10px';
+        ui.style.pointerEvents = 'none';
         canvas.parentElement.appendChild(ui);
         this.scoreLabel = document.createElement('div');
         this.scoreLabel.className = 'label';
@@ -76,6 +77,10 @@ export class Game {
         button.className = 'button';
         button.textContent = 'Пауза';
         button.style.fontSize = gameSetting.button.size;
+        button.style.pointerEvents = 'auto'
+        button.addEventListener('keydown', (e) => {
+            if (e.keyCode === 32 || e.keyCode === 13) e.preventDefault();
+        });
         button.addEventListener('click', () => {
             this.world.isPause = !this.world.isPause;
         });
