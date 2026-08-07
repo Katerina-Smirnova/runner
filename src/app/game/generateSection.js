@@ -7,7 +7,7 @@ export default class GenerateSection {
         this.minStraight = 2;
         this.maxStraight = 6;
         this.currentStraight = 0
-        this.lastLine = null
+        this.lastLine = -1
     }
 
     nextSection() {
@@ -16,10 +16,11 @@ export default class GenerateSection {
             this.lastLine = this.currentLine;
             this.changeLane()
             this.currentStraight = shuffle.randomInt(this.minStraight, this.maxStraight);
-            if(this.lastLine) section[this.lastLine] = 1;
+            if(this.lastLine!==-1) section[this.lastLine] = 1;
         }
         this.currentStraight--
         section[this.currentLine] = 1;
+        console.log(section);
         return section;
     }
 
