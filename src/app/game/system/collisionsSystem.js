@@ -5,6 +5,7 @@ export default class CollisionSystem {
     constructor(world) {
         this.world = world;
     }
+
     update(entities) {
         const ball = entities.find(e => e.getName() === "ball");
         if (!ball)
@@ -41,8 +42,11 @@ export default class CollisionSystem {
 
     onCollision(object) {
         const mesh = object.get("Visual").mesh;
+        const ball = this.world.entities.find(e => e.getName() === "ball");
         switch (object.name) {
             case "Obstacle":
+                const player = ball.get("Player");
+                if (player.immunity) break
                 this.world.stopPlay()
                 break;
             case "Coin":
@@ -58,7 +62,6 @@ export default class CollisionSystem {
                 });
                 break;
             case"Jetpack":
-                const ball = this.world.entities.find(e => e.getName() === "ball");
                 ball.get("Jetpack").isActive = true;
                 ball.get("Jetpack").startZ = ball.get("Position").z;
                 ball.get("Jetpack").endZ = ball.get("Position").z - 30;

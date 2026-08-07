@@ -26,6 +26,7 @@ export default class JetpackFlightSystem {
             if (!jetpack || !jetpack.isActive) continue;
             const position = entity.get("Position");
             const player = entity.get("Player");
+            player.immunity = true
             if (position.z === jetpack.startZ && !this.created) {
                 this.created = true;
                 this.create(jetpack)
@@ -40,6 +41,7 @@ export default class JetpackFlightSystem {
                     position.y = jetpack.startY;
                     jetpack.isActive = false;
                     player.speed = -0.1;
+                    player.immunity = false
                 }
             } else {
                 position.y += (jetpack.startY + jetpack.height - position.y) * 0.1;
