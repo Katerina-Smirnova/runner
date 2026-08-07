@@ -20,7 +20,6 @@ export default class GenerateSection {
         }
         this.currentStraight--
         section[this.currentLine] = 1;
-        console.log(section);
         return section;
     }
 
