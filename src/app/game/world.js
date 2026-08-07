@@ -57,7 +57,6 @@ export default class World {
                 system.update(this.entities);
             }
         }
-        this.processEvents()
         this.removeEntities();
     }
     stopPlay(){
