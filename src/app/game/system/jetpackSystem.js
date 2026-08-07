@@ -39,7 +39,7 @@ export default class JetpackSystem{
     createCoin(section) {
         const coinChance = 0.2;
         for (let lane = 0; lane < section.path.length; lane++) {
-            if (section.path[lane] === 2) continue;
+            if (section.path[lane] === 2 || section.path[lane] === 3) continue;
             if (shuffle.random() < coinChance) {
                 const coin = this.createEntity(lane - 1, 0.25, section.positionZ);
                 this.world.entities.push(coin);

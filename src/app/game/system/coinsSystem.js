@@ -53,7 +53,7 @@ export default class CoinsSystem {
                 const coin = this.createEntity(lane - 1, section.positionY, section.positionZ);
                 this.world.entities.push(coin);
                 section.entities.push(coin);
-                section.path[lane]  = 2;
+                section.path[lane]  = 3;
             }
         }
     }
