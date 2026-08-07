@@ -54,19 +54,32 @@ export class Game {
         this.createRoad()
         this.createCamera()
 
-        this.labelRenderer = new CSS2DRenderer();
-        this.labelRenderer.setSize(canvas.clientWidth, canvas.clientHeight);
-        this.labelRenderer.domElement.style.position = 'absolute';
-        this.labelRenderer.domElement.style.top = '0';
-        this.labelRenderer.domElement.style.pointerEvents = 'none';
-        canvas.parentElement.appendChild(this.labelRenderer.domElement);
+        const ui = document.createElement('div');
+        ui.style.position = 'absolute';
+        ui.style.top = '0';
+        ui.style.left = '0';
+        ui.style.width = '100%';
+        ui.style.display = 'flex';
+        ui.style.justifyContent = 'center';
+        ui.style.alignItems = 'center';
+        ui.style.padding = '10px';
+        ui.style.gap = '10px';
+        canvas.parentElement.appendChild(ui);
         this.scoreLabel = document.createElement('div');
         this.scoreLabel.className = 'label';
         this.scoreLabel.style.color = gameSetting.label.color;
         this.scoreLabel.style.fontSize = gameSetting.label.size;
         this.scoreLabel.textContent = `Счет: ${this.world.countCoins}`;
-        this.scoreLabel.style.textAlign = 'center';
-        this.labelRenderer.domElement.appendChild(this.scoreLabel);
+        ui.appendChild(this.scoreLabel);
+
+        const button = document.createElement('button');
+        button.className = 'button';
+        button.textContent = 'Пауза';
+        button.style.fontSize = gameSetting.button.size;
+        button.addEventListener('click', () => {
+            this.world.isPause = !this.world.isPause;
+        });
+        ui.appendChild(button);
 
         const generator = new GenerateSection
 
@@ -176,7 +189,6 @@ export class Game {
         }
         this.world.update();
         this.scoreLabel.textContent = `Счет: ${this.world.countCoins}`;
-        this.labelRenderer.render(this.scene, this.camera);
         this.renderer.render(this.scene, this.camera);
 
         requestAnimationFrame(this.render);

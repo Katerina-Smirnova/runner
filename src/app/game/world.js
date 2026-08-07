@@ -3,7 +3,9 @@ export default class World {
         this.entities = [];
         this.systems = [];
         this.countCoins = 0;
+        this.isPause = false;
     }
+
     addEntity(entity) {
         this.entities.push(entity);
     }
@@ -11,6 +13,7 @@ export default class World {
     addSystem(system) {
         this.systems.push(system);
     }
+
     removeEntities(entity) {
         this.entities = this.entities.filter(e => {
             if (e !== entity) {
@@ -45,6 +48,7 @@ export default class World {
             return false;
         });
     }
+
     query(...components) {
         return this.entities.filter(entity =>
             components.every(name => entity.components.has(name))
@@ -52,6 +56,7 @@ export default class World {
     }
 
     update() {
+        if (this.isPause) return
         for (const system of this.systems) {
             if (Reflect.has(system, "update")) {
                 system.update(this.entities);
@@ -59,7 +64,8 @@ export default class World {
         }
         this.removeEntities();
     }
-    stopPlay(){
+
+    stopPlay() {
         this.entities = []
         this.systems = []
         this.countCoins = 0

@@ -63,5 +63,8 @@ export const gameSetting = {
     jetpack:{
         color:"green",
         size:[0.2, 0.2, 0.1],
+    },
+    button:{
+        size:"30px"
     }
 }
