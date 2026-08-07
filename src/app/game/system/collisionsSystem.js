@@ -6,15 +6,16 @@ export default class CollisionSystem {
         this.world = world;
     }
 
+    getEntity(component) {
+        return this.world.queryEntitiesSeveral(component);
+    }
+
     update(entities) {
         const ball = entities.find(e => e.getName() === "ball");
         if (!ball)
             return;
-        const objects = entities.filter(entity => entity !== ball &&
-            entity.get("Collider") &&
-            entity.get("Position")
-        );
-        for (const entity of objects) {
+        for (const entity of this.getEntity("Collider", "Position")) {
+            if (entity === ball) continue
             if (!this.checkCollision(ball, entity))
                 continue;
             this.onCollision(entity);

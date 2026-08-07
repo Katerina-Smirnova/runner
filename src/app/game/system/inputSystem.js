@@ -13,7 +13,7 @@ export default class InputSystem {
     }
 
     getInputs() {
-        return this.world.query("EventInput");
+        return this.world.queryEntity("EventInput");
     }
 
     handleKeyDown(e) {

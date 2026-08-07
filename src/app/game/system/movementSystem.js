@@ -4,12 +4,11 @@ export default class MovementSystem {
     constructor(world) {
         this.world = world;
     }
+    getEntity(component) {
+        return this.world.queryEntitiesSeveral(component);
+    }
     update(entities) {
-        const objects = entities.filter(entity =>
-            entity.get("Movement") &&
-            entity.get("EventInput")
-        );
-        for (const entity of objects) {
+        for (const entity of this.getEntity("Movement", "EventInput","Position")) {
             const movement = entity.get("Movement");
             const input = entity.get("EventInput");
             const position = entity.get("Position");

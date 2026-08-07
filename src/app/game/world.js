@@ -1,13 +1,17 @@
+import EntityIndex from "@/app/game/entityIndex";
+
 export default class World {
     constructor() {
         this.entities = [];
         this.systems = [];
         this.countCoins = 0;
         this.isPause = false;
+        this.indexer = new EntityIndex()
     }
 
     addEntity(entity) {
         this.entities.push(entity);
+        this.indexer.add(entity);
     }
 
     addSystem(system) {
@@ -49,10 +53,14 @@ export default class World {
         });
     }
 
-    query(...components) {
-        return this.entities.filter(entity =>
-            components.every(name => entity.components.has(name))
-        );
+    queryEntity(components) {
+        return this.indexer.getEntity(components)
+    }
+    queryComponent(entity) {
+        return this.indexer.getComponent(entity)
+    }
+    queryEntitiesSeveral(...components) {
+        return this.indexer.getEntitiesSeveral(...components)
     }
 
     update() {

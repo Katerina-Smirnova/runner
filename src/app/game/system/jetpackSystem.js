@@ -17,7 +17,7 @@ export default class JetpackSystem{
         this.create();
     }
     getEntity(component) {
-        return this.world.query(component);
+        return this.world.queryEntity(component);
     }
     subscribe() {
         for (const entity of this.getEntity("Road")) {
@@ -43,7 +43,7 @@ export default class JetpackSystem{
             if (section.path[lane] === 2 || section.path[lane] === 3) continue;
             if (shuffle.random() < coinChance) {
                 const coin = this.createEntity(lane - 1, 0.25, section.positionZ);
-                this.world.entities.push(coin);
+                this.world.addEntity(coin);
                 section.entities.push(coin)
             }
         }

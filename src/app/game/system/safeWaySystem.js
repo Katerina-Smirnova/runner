@@ -10,13 +10,12 @@ export default class SafeWaySystem {
         this.create()
     }
     getEntity(component) {
-        return this.world.query(component);
+        return this.world.queryEntity(component);
     }
 
     create() {
         for (const entity of this.getEntity("Road")) {
             const road = entity.get("Road");
-            if (!road) continue;
             for (let i = 0; i < 20; i++) {
                 const newSection = {path: this.generate.nextSection(), positionZ: this.z, positionY: 0.25, entities: []}
                 road.addSafeWay(newSection);

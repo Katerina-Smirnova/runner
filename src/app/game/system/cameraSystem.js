@@ -11,7 +11,6 @@ export default class CameraSystem {
         this.alpha = 0.05
         this.offsetY = 0.7;
     }
-
     update(entities) {
         const ball = entities.find(e => e.getName() === "ball");
         if (!ball)

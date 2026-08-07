@@ -26,7 +26,7 @@ export default class PositionSystem {
         }
     }
     getEntity(component) {
-        return this.world.query(component);
+        return this.world.queryEntity(component);
     }
 
     startJump(position, movement, visual) {

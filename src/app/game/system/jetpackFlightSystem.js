@@ -20,7 +20,7 @@ export default class JetpackFlightSystem {
         }
     }
     getEntity(component) {
-        return this.world.query(component);
+        return this.world.queryEntity(component);
     }
 
     update() {

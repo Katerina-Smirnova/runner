@@ -23,7 +23,7 @@ export default class ObstacleSystem {
         this.create();
     }
     getEntity(component) {
-        return this.world.query(component);
+        return this.world.queryEntity(component);
     }
 
     subscribe() {
@@ -52,7 +52,7 @@ export default class ObstacleSystem {
             if (section.path[lane] === 1) continue;
             if (shuffle.random() < obstacleChance) {
                 const obstacle = this.createEntity(lane - 1, section.positionY, section.positionZ);
-                this.world.entities.push(obstacle);
+                this.world.addEntity(obstacle);
                 section.entities.push(obstacle)
                 section.path[lane]  = 2;
             }

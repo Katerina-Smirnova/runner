@@ -18,11 +18,12 @@ export default class CoinsSystem {
     }
 
     getEntity(component) {
-        return this.world.query(component);
+        return this.world.queryEntity(component);
     }
 
     subscribe() {
         for (const entity of this.getEntity("Road")) {
+            console.log(entity);
             const road = entity.get("Road");
             road.addObserver((event, section) => {
                 if (event === "addSafeWay") {
@@ -54,7 +55,7 @@ export default class CoinsSystem {
             if (section.path[lane] === 2) continue;
             if (shuffle.random() < probability) {
                 const coin = this.createEntity(lane - 1, section.positionY, section.positionZ);
-                this.world.entities.push(coin);
+                this.world.addEntity(coin);
                 section.entities.push(coin);
                 section.path[lane] = 3;
             }
